@@ -730,29 +730,48 @@
   <footer class="site-foot">
     © <span id="year"></span> Rudhvi Vasthra — All rights reserved
   </footer>
-
   <script>
-    // Small JS for form and helpers
-    document.getElementById('year').textContent = new Date().getFullYear();
+        // --- Core Site Helpers ---
 
-    function handleContact(e) {
-      e.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const msg = document.getElementById('message').value.trim();
-      if (!name || !email || !msg) { alert('Please fill all fields'); return; }
-      // Demo: show confirmation. Replace with real form submission (AJAX) in production.
-      alert('Thanks, ' + name + '! Your message has been received. We will contact you soon.');
-      e.target.reset();
-    }
+        // Auto-update the copyright year in the footer.
+        document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Improve tile click accessibility: clicking anywhere in tile goes to contact
-    document.querySelectorAll('.tile').forEach(t => {
-      t.addEventListener('click', () => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }));
-      t.style.cursor = 'pointer';
-      // allow keyboard activation
-      t.addEventListener('keydown', (ev) => {
-        if (ev.key === 'Enter' || ev.key === ' ') {
-          ev.preventDefault();
-          document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-    
+        /**
+         * Handles the contact form submission.
+         * @param {Event} e - The form submission event.
+         */
+        function handleContact(e) {
+            // Prevent the default form submission (which causes a page reload).
+            e.preventDefault();
+            
+            // Retrieve and trim values from form fields.
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const msg = document.getElementById('message').value.trim();
+            
+            // Basic client-side validation: ensure all fields are filled.
+            if (!name || !email || !msg) { 
+                alert('Please fill all fields'); 
+                return; 
+            }
+            
+            // NOTE: This is a demo. In production, replace this alert 
+            // with an actual asynchronous form submission (AJAX/Fetch API).
+            alert('Thanks, ' + name + '! Your message has been received. We will contact you soon.');
+            
+            // Clear the form fields after successful 'submission'.
+            e.target.reset();
+        }
+
+        // --- UI/Accessibility Enhancements ---
+
+        // Make the entire 'tile' element clickable, scrolling to the contact section.
+        document.querySelectorAll('.tile').forEach(t => {
+            // Add click listener: smooth scroll to the element with ID 'contact'.
+            t.addEventListener('click', () => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }));
+            
+            // Change the cursor to indicate the element is interactive/clickable.
+            t.style.cursor = 'pointer';
+        });
+    </script>
+</body>
