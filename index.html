@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Rudhvi Vasthra — Sarees Collection</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #E62727;
+            --bg-cream: #F6EFD2;
+            --text: #000000;
+            --muted: #7a7269;
+            --card-bg: #ffffff;
+            --beige: #CBB89F;
+            /* CTA beige like screenshots */
+            --dark-section: #0b0d0c;
+            /* near black used in screenshots */
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            color: var(--text);
+            background: var(--bg-cream);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.5;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        img {
+            max-width: 100%;
+            display: block
+        }
+
+        /* ---------- Top navigation (transparent over hero) ---------- */
+        .site-nav {
+            width: 100%;
+            position: fixed;
+            left: 0;
+            top: 14px;
+            z-index: 60;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 36px;
+            pointer-events: none;
+            background: rgba(256, 256, 256, 0.8);
+        }
+
+        .site-nav .inner {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            pointer-events: auto;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+        }
+
+        .brand .mark {
+            width: 46px;
+            height: 46px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary), #b51919);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #fff;
+            font-family: "Playfair Display", serif;
+            font-size: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center
+        }
+
+        .nav-links a {
+            color: black;
+            font-weight: 500;
+            font-size: 15px
+        }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            min-height: 84vh;
+            display: grid;
+            place-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 100px 20px 60px;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1603214395513-3ff2d4f3f9c3?q=80&w=1800&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(.45);
+            z-index: 0;
+        }
+
+        .hero .center {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #fff;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-family: "Playfair Display", serif;
+            font-weight: 700;
+            font-size: 84px;
+            letter-spacing: 4px;
+            margin: 0 0 26px;
+            line-height: 0.95;
+            text-transform: uppercase;
+        }
+
+        .hero p.lead {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px;
+            margin: 0 auto 28px;
+            max-width: 720px
+        }
+
+        .hero .cta-row {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 6px;
+            border: 0;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .btn.beige {
+            background: var(--beige);
+            color: var(--dark-section);
+            border: 0
+        }
+
+        .btn.ghost {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.25)
+        }
+
+        /* ---------- About (dark band) ---------- */
+        .about-section {
+            background: var(--dark-section);
+            color: #fff;
+            padding: 64px 20px;
+            position: relative;
+        }
+
+        .about-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-title {
+            font-family: "Playfair Display", serif;
+            font-size: 30px;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .about-title::after {
+            content: "";
+            position: absolute;
+            left: -28px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 68%;
+            width: 4px;
+            background: var(--beige);
+            border-radius: 2px;
+        }
+
+        .about-copy {
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 16px;
+        }
+
+        .about-cta {
+            margin-top: 22px;
+            display: flex;
+            gap: 14px
+        }
+
+        /* ---------- Collection (cream) ---------- */
+        .collection {
+            padding: 64px 20px;
+        }
+
+        .collection-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center
+        }
+
+        .collection h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 42px;
+            margin: 0 0 12px;
+            /*color: var(--muted);*/
+            color: black;
+            letter-spacing: 2px
+        }
+
+        .collection p.sub {
+            max-width: 760px;
+            margin: 8px auto 28px;
+            color: rgba(0, 0, 0, .75);;
+            font-size: 16px
+        }
+
+        .tiles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 34px;
+            align-items: stretch;
+        }
+
+        .tile {
+            position: relative;
+            height: 320px;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(10, 10, 10, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tile .bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            filter: contrast(.92)
+        }
+
+        .tile::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5));
+        }
+
+        .tile .content {
+            position: relative;
+            color: #fff;
+            text-align: center;
+            padding: 28px;
+            z-index: 2
+        }
+
+        .tile .content h3 {
+            font-family: "Playfair Display", serif;
+            color: white;
+            font-size: 26px;
+            margin-bottom: 12px;
+            letter-spacing: 1px
+        }
+
+        .tile .content p {
+            font-size: 15px;
+            /*color: rgba(255, 255, 255, 0.95);*/
+            color: white;
+            max-width: 320px;
+            margin: 0 auto 16px
+        }
+
+        .tile .content a {
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 600
+        }
+
+        /* ---------- Testimonials ---------- */
+        .testimonials {
+            padding: 64px 20px;
+            background: var(--bg-cream);
+        }
+
+        .test-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center
+        }
+
+        .test-inner h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 42px;
+            margin: 0 0 12px;
+            color: var(--dark-section)
+        }
+
+        .test-inner p.sub {
+            color: var(--muted);
+            max-width: 760px;
+            margin: 8px auto 28px
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 30px
+        }
+
+        .testimonial {
+            background: var(--card-bg);
+            padding: 28px;
+            border-radius: 6px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+            text-align: left;
+        }
+
+        .quote-icon {
+            font-size: 30px;
+            color: var(--muted);
+            opacity: 0.9;
+            margin-bottom: 6px
+        }
+
+        .testimonial p {
+            margin: 0 0 16px;
+            color: #333
+        }
+
+        .testimonial .author {
+            font-weight: 700
+        }
+
+        /* ---------- Contact (dark) ---------- */
+        .contact {
+            background: var(--dark-section);
+            color: #fff;
+            padding: 64px 20px;
+        }
+
+        .contact-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 40px;
+            align-items: start
+        }
+
+        .contact h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 40px;
+            margin: 0 0 8px;
+            color: #fff
+        }
+
+        .contact .details {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8
+        }
+
+        .contact form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px
+        }
+
+        .contact input,
+        .contact textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 0;
+            font-size: 15px;
+            background: #fff;
+            color: #111;
+        }
+
+        .contact textarea {
+            min-height: 140px;
+            resize: vertical
+        }
+
+        .contact .submit {
+            background: var(--beige);
+            color: var(--dark-section);
+            border: 0;
+            padding: 12px 18px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        /* ---------- Footer ---------- */
+        footer.site-foot {
+            padding: 30px 20px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px
+        }
+
+        /* ---------- Small screens ---------- */
+        @media (max-width:980px) {
+            .about-inner {
+                grid-template-columns: 1fr;
+                gap: 18px;
+                padding: 0 16px
+            }
+
+            .contact-inner {
+                grid-template-columns: 1fr;
+                gap: 26px;
+                padding: 0 16px
+            }
+
+            .tiles {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .hero h1 {
+                font-size: 56px
+            }
+
+            .site-nav {
+                padding: 0 20px
+            }
+
+            .nav-links {
+                display: none
+            }
+
+            /* simplified for hero overlay */
+        }
+
+        @media (max-width:680px) {
+            .tiles {
+                grid-template-columns: 1fr
+            }
+
+            .hero {
+                padding: 90px 12px 50px
+            }
+
+            .hero h1 {
+                font-size: 40px
+            }
+
+            .hero p.lead {
+                font-size: 15px
+            }
+
+            .test-grid {
+                grid-template-columns: 1fr
+            }
+
+            .brand .mark {
+                width: 36px;
+                height: 36px;
+                font-size: 18px
+            }
+
+            .contact form {
+                order: 2
+            }
+        }
+
+        /* utility */
+        .center {
+            max-width: 1100px;
+            margin: 0 auto
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- top transparent nav -->
+    <div class="site-nav" aria-hidden="false">
+        <div class="inner">
+            <div class="brand">
+                <div class="mark">RV</div>
+                <div style="color:black">
+                    <div style="font-weight:700">Rudhvi Vasthra</div>
+                    <div style="font-size:12px;opacity:.85">Exquisite Sarees</div>
+                </div>
+            </div>
+
+            <div class="nav-links" role="navigation" aria-label="Main menu">
+                <a href="#about">About</a>
+                <a href="#collection">Collection</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </div>
+
+<!-- HERO -->
+<header class="hero" role="banner" id="home">
+  <div class="hero-bg">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Rudhvi Vasthra</h1>
+      <p class="lead">
+        A curated collection celebrating the rich heritage and artistry of Indian sarees —
+        traditional weaves, designer pieces, and everyday elegance.
+      </p>
+      <div class="cta-row">
+        <button class="btn beige" onclick="document.getElementById('collection').scrollIntoView({behavior:'smooth'})">Services</button>
+        <button class="btn ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contacts</button>
+      </div>
+    </div>
+  </div>
+</header>
+<style>
+    .hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: url('backdrop.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #fff;
+  padding: 0 20px;
+  max-width: 800px;
+}
+
+.hero-content h1 {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: 80px;
+  margin-bottom: 20px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.hero-content p.lead {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+</style>
+
+
+
+
+    <!-- ABOUT (dark band) -->
+    <section class="about-section" id="about">
+        <div class="about-inner">
+            <div>
+                <div class="about-title">About Rudhvi Vasthra</div>
+            </div>
+            <div>
+                <p class="about-copy">Welcome to Rudhvi Vasthra, your premier destination for exquisite sarees. Our
+                    online platform showcases a stunning collection that celebrates the rich heritage and artistry of
+                    saree craftsmanship. We pride ourselves on offering a diverse range of styles, fabrics, and designs,
+                    ensuring that every piece resonates with elegance and tradition. Whether you're dressing for a
+                    special occasion or seeking everyday wear, our curated selection promises to enhance your wardrobe
+                    with grace and sophistication. Explore the beauty of sarees with us at Rudhvi Vasthra.</p>
+
+                <div class="about-cta">
+                    <button class="btn beige"
+                        onclick="document.getElementById('collection').scrollIntoView({behavior:'smooth'})">Services</button>
+                    <button class="btn ghost"
+                        onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contacts</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COLLECTION -->
+    <section class="collection" id="collection">
+        <div class="collection-inner">
+            <h2>Our Collection</h2>
+            <p class="sub">Explore a wide array of sarees designed to cater to your unique style and preferences at
+                Rudhvi Vasthra.</p>
+
+            <div class="tiles" role="list">
+                <article class="tile" role="listitem" aria-label="Traditional sarees">
+                    <div class="bg"
+                        style="background-image:url('traditional.jpg')">
+                    </div>
+                    <div class="content">
+                        <h3>Traditional Sarees</h3>
+                        <p>Embrace timeless elegance with our traditional sarees, crafted to reflect the rich cultural
+                            heritage and artistry of India.</p>
+                        <a href="#contact">Contact ›</a>
+                    </div>
+                </article>
+
+                <article class="tile" role="listitem" aria-label="Designer sarees">
+                    <div class="bg"
+                        style="background-image:url('designer.jpg')">
+                    </div>
+                    <div class="content">
+                        <h3>Designer Sarees</h3>
+                        <p>Discover our exclusive range of designer sarees, where contemporary styles meet classic charm
+                            — perfect for any celebration.</p>
+                        <a href="#contact">Contact ›</a>
+                    </div>
+                </article>
+
+                <article class="tile" role="listitem" aria-label="Casual sarees">
+                    <div class="bg"
+                        style="background-image:url('casual.jpg')">
+                    </div>
+                    <div class="content">
+                        <h3>Casual Sarees</h3>
+                        <p>Find comfort and style in our casual sarees — ideal for everyday wear while maintaining a
+                            touch of elegance.</p>
+                        <a href="#contact">Contact ›</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials" id="testimonials">
+        <div class="test-inner">
+            <h2>Customer Reviews</h2>
+            <p class="sub">We value the feedback from our customers and appreciate their continued support.</p>
+
+            <div class="test-grid">
+                <div class="testimonial">
+                    <div class="quote-icon">“</div>
+                    <p>Rudhvi Vasthra has redefined my saree shopping experience! The variety is incredible, and the
+                        quality is unmatched. I felt stunning in the saree I purchased for my sister's wedding.</p>
+                    <div class="author">Sarah Holland <span
+                            style="display:block;color:var(--muted);font-weight:400">Customer</span></div>
+                </div>
+
+                <div class="testimonial">
+                    <div class="quote-icon">“</div>
+                    <p>I've shopped from several saree websites, but Rudhvi Vasthra stands out for its unique
+                        collection. The saree I ordered arrived beautifully packaged and exceeded my expectations in
+                        both quality and design.</p>
+                    <div class="author">David Watson <span
+                            style="display:block;color:var(--muted);font-weight:400">Customer</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+        <div class="contact-inner">
+            <div>
+                <h2>Get in Touch</h2>
+                <p class="details">We're here to help. For enquiries about product availability, custom orders, or any
+                    other assistance — drop us a message or use the contact details below.</p>
+
+                <div style="margin-top:28px;color:rgba(255,255,255,0.9)">
+                    <div style="margin-bottom:14px">
+                        <strong>Email</strong><br>
+                        <a href="mailto:info@rudhvivasthra.com"
+                            style="color:rgba(255,255,255,0.9)">info@rudhvivasthra.com</a>
+                    </div>
+
+                    <div style="margin-bottom:14px">
+                        <strong>Phone</strong><br>
+                        <a href="tel:+911234567890" style="color:rgba(255,255,255,0.9)">+91 12345 67890</a>
+                    </div>
+
+                    <div>
+                        <strong>Address</strong><br>
+                        <span style="color:rgba(255,255,255,0.9)">123, Textile Lane, Heritage Street, Hyderabad,
+                            India</span>
+                    </div>
+                </div>
+            </div>
+
+            <form onsubmit="handleContact(event)">
+                <input type="text" id="name" placeholder="Name" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <textarea id="message" placeholder="Type your message here..." required></textarea>
+                <div style="display:flex;gap:12px;align-items:center;justify-content:flex-end">
+                    <button type="submit" class="submit">Send Message</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="site-foot">
+        © <span id="year"></span> Rudhvi Vasthra — All rights reserved
+    </footer>
+
+    <script>
+        // Small JS for form and helpers
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        function handleContact(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const msg = document.getElementById('message').value.trim();
+            if (!name || !email || !msg) { alert('Please fill all fields'); return; }
+            // Demo: show confirmation. Replace with real form submission (AJAX) in production.
+            alert('Thanks, ' + name + '! Your message has been received. We will contact you soon.');
+            e.target.reset();
+        }
+
+        // Improve tile click accessibility: clicking anywhere in tile goes to contact
+        document.querySelectorAll('.tile').forEach(t => {
+            t.addEventListener('click', () => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }));
+            t.style.cursor = 'pointer';
+        });
+    </script>
+</body>
+
+</html>
