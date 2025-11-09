@@ -5,13 +5,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Rudhvi Vasthra — Sarees Collection</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
+    rel="stylesheet">
 
   <style>
     :root {
       --primary: #E62727;
       --bg-cream: #F6EFD2;
-      --text: #000;
+      --text: #000000;
       --beige: #CBB89F;
       --dark-section: #0b0d0c;
     }
@@ -28,8 +30,10 @@
       width: 100%;
       position: fixed;
       top: 0;
+      left: 0;
       background: rgba(255, 255, 255, 0.95);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       z-index: 100;
     }
 
@@ -59,10 +63,74 @@
       color: #fff;
       font-family: "Playfair Display", serif;
       font-weight: 800;
+      font-size: 18px;
     }
 
-    .nav-links { display: flex; gap: 20px; }
-    .nav-links a { text-decoration: none; color: #000; font-weight: 500; }
+    .brand-name {
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .brand-name small {
+      display: block;
+      font-size: 11px;
+      opacity: 0.8;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      font-weight: 500;
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    /* Mobile Menu */
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        flex-direction: column;
+        text-align: center;
+        padding: 16px 0;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-links.show {
+        display: flex;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
 
     /* Hero */
     .hero {
@@ -77,6 +145,7 @@
       align-items: center;
       justify-content: center;
       margin-top: 55px;
+      overflow: hidden;
     }
 
     .hero::before {
@@ -86,21 +155,77 @@
       background: rgba(0, 0, 0, 0.45);
     }
 
-    .hero h1, .hero p, .greeting-text {
+    /* Smooth Fade Animation */
+    .greeting-text,
+    .hero h1,
+    .hero p {
       position: relative;
       z-index: 2;
+      opacity: 0;
+      transform: translateY(20px);
       animation: fadeSlideUp 1s ease forwards;
     }
 
+    .greeting-text {
+      animation-delay: 0.2s;
+      font-family: "Playfair Display", serif;
+      font-weight: 700;
+      font-size: 26px;
+    }
+
+    .hero h1 {
+      animation-delay: 0.5s;
+      font-family: "Playfair Display", serif;
+      font-size: 60px;
+      margin: 10px 0;
+    }
+
+    .hero p {
+      animation-delay: 0.8s;
+      max-width: 700px;
+    }
+
     @keyframes fadeSlideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Mobile Hero Center */
+    @media (max-width: 768px) {
+      .hero {
+        margin-top: 0;
+        min-height: 85vh;
+        padding-top: 40px;
+        justify-content: center;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .greeting-text {
+        font-size: 20px;
+      }
     }
 
     /* Sections */
-    section { padding: 64px 20px; }
+    section {
+      padding: 64px 20px;
+    }
 
-    .about-section, .contact { background: var(--dark-section); color: #fff; }
+    h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 34px;
+      margin-bottom: 20px;
+    }
+
+    .about-section,
+    .contact {
+      background: var(--dark-section);
+      color: #fff;
+    }
 
     .tiles {
       display: grid;
@@ -110,16 +235,30 @@
     }
 
     .tile {
-      background: #fff;
+      background: white;
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
       text-align: center;
       padding-bottom: 10px;
     }
 
-    .tile img { width: 100%; height: 250px; object-fit: cover; }
+    .tile img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
 
-    .tile h3 { font-family: "Playfair Display", serif; margin: 10px 0 4px; }
+    .tile h3 {
+      font-family: "Playfair Display", serif;
+      margin: 10px 0 4px;
+    }
+
+    .saree-id {
+      font-size: 13px;
+      color: #777;
+      margin-bottom: 6px;
+    }
 
     .tile button {
       background: var(--beige);
@@ -127,67 +266,129 @@
       padding: 8px 12px;
       border-radius: 6px;
       cursor: pointer;
-      transition: 0.2s;
+      margin-bottom: 12px;
+      transition: transform 0.2s, background 0.2s;
     }
 
-    .tile button:hover { background: #b8a78f; transform: translateY(-2px); }
+    .tile button:hover {
+      background: #b8a78f;
+      transform: translateY(-2px);
+    }
 
-    /* Feedback Section */
-    .feedback-card {
+    /* Floating Buttons */
+    #whatsappBtn,
+    #cartIcon {
+      position: fixed;
+      bottom: 20px;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 200;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease;
+    }
+
+    #whatsappBtn {
+      left: 20px;
+      background: #28a71a;
+    }
+
+    #cartIcon {
+      right: 20px;
       background: #fff;
-      max-width: 820px;
-      margin: 24px auto 0;
+      font-size: 28px;
+      text-decoration: none;
+      position: fixed;
+    }
+
+    #whatsappBtn:hover,
+    #cartIcon:hover {
+      transform: scale(1.1);
+    }
+
+    #whatsappBtn img {
+      width: 34px;
+      height: 34px;
+    }
+
+    #cartCount {
+      position: absolute;
+      top: 4px;
+      right: 6px;
+      background: var(--primary);
+      color: white;
+      font-size: 13px;
+      font-weight: 600;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    footer {
+      text-align: center;
       padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-      text-align: left;
+      color: #777;
+      background: #fff;
     }
 
-    .feedback-row input, .feedback-row textarea {
+    /* Popup */
+    #welcomePopup {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    #popupBox {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      width: 300px;
+    }
+
+    #popupBox input {
       width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
+      padding: 8px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
       border-radius: 6px;
-      margin-top: 10px;
     }
 
-    .feedback-actions {
-      text-align: right;
-      margin-top: 10px;
-    }
-
-    .btn-primary {
+    #popupBox button {
       background: var(--primary);
       color: white;
       border: none;
-      padding: 8px 14px;
+      padding: 8px 16px;
+      margin-top: 14px;
       border-radius: 6px;
       cursor: pointer;
     }
 
-    .feedback-item {
-      border-bottom: 1px solid #f0f0f0;
-      padding: 10px 0;
-    }
-
-    .feedback-item .meta {
-      font-size: 13px;
-      color: #777;
-      margin-bottom: 4px;
-    }
-
-    footer { text-align: center; padding: 20px; color: #777; background: #fff; }
-
+    /* Toast */
     .toast {
       position: fixed;
       bottom: 80px;
       left: 50%;
       transform: translateX(-50%);
       background: var(--primary);
-      color: #fff;
+      color: white;
       padding: 10px 18px;
       border-radius: 8px;
+      opacity: 0;
+      font-weight: 500;
       animation: fadeInOut 2.5s ease;
+      z-index: 500;
     }
 
     @keyframes fadeInOut {
@@ -195,138 +396,366 @@
       10%, 90% { opacity: 1; transform: translate(-50%, 0); }
       100% { opacity: 0; transform: translate(-50%, 20px); }
     }
+
+    /* Feedback form (minimal to reuse existing CSS) */
+    .feedback-card {
+      background: white;
+      max-width: 820px;
+      margin: 24px auto 0;
+      padding: 18px;
+      border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      text-align: left;
+    }
+
+    .feedback-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .feedback-row input, .feedback-row textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      resize: vertical;
+    }
+
+    .feedback-actions { display:flex; justify-content:flex-end; margin-top:10px; gap:10px; }
+    .btn-primary { background: var(--primary); color: #fff; border: none; padding: 8px 14px; border-radius:6px; cursor:pointer; }
+    .btn-secondary { background: var(--beige); color: #111; border: none; padding: 8px 14px; border-radius:6px; cursor:pointer; }
+
+    .feedback-list { margin-top: 16px; }
+    .feedback-item { padding: 12px; border-bottom: 1px solid #f0f0f0; }
+    .feedback-item .meta { font-size: 13px; color: #666; margin-bottom:6px; }
   </style>
 </head>
+
 <body>
+  <!-- Navbar -->
   <div class="site-nav">
     <div class="inner">
-      <div class="brand"><div class="mark">RV</div> <div>Rudhvi Vasthra</div></div>
-      <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#collection">Collection</a>
-        <a href="#testimonials">Testimonials</a>
-        <a href="#contact">Contact</a>
+      <div class="brand">
+        <div class="mark">RV</div>
+        <div class="brand-name">
+          Rudhvi Vasthra
+          <small>Exquisite Sarees</small>
+        </div>
+      </div>
+      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+      <div class="nav-links" id="navMenu">
+        <a href="#about" onclick="closeMenu()">About</a>
+        <a href="#collection" onclick="closeMenu()">Collection</a>
+        <a href="#testimonials" onclick="closeMenu()">Testimonials</a>
+        <a href="#contact" onclick="closeMenu()">Contact</a>
       </div>
     </div>
   </div>
 
+  <!-- Hero -->
   <header class="hero">
     <p id="greeting" class="greeting-text"></p>
     <h1>Rudhvi Vasthra</h1>
-    <p>Celebrating the heritage and artistry of Indian sarees.</p>
+    <p>A curated collection celebrating the rich heritage and artistry of Indian sarees — traditional weaves,
+      designer pieces, and everyday elegance.</p>
   </header>
 
+  <!-- About -->
   <section class="about-section" id="about">
-    <div style="max-width:900px;margin:auto;">
-      <h2>About Us</h2>
-      <p>We offer a curated collection of exquisite sarees blending tradition with elegance.</p>
+    <div style="max-width:1000px;margin:auto;">
+      <h2>About Rudhvi Vasthra</h2>
+      <p>Welcome to Rudhvi Vasthra, your premier destination for exquisite sarees...</p>
     </div>
   </section>
 
+  <!-- Collection -->
   <section id="collection">
-    <div style="max-width:900px;margin:auto;text-align:center;">
+    <div style="max-width:1100px;margin:auto;text-align:center;">
       <h2>Our Collection</h2>
       <div class="tiles" id="sareeGrid"></div>
     </div>
   </section>
 
+  <!-- Testimonials + Feedback form -->
   <section id="testimonials" style="background:var(--bg-cream);">
-    <div style="max-width:900px;margin:auto;text-align:center;">
-      <h2>Customer Feedback</h2>
-      <p>We appreciate your thoughts and experiences with us.</p>
+    <div style="max-width:1000px;margin:auto;text-align:center;">
+      <h2>Customer Reviews</h2>
+      <p>We value the feedback from our customers and appreciate their continued support.</p>
     </div>
 
-    <div class="feedback-card">
-      <input type="text" id="fbName" placeholder="Your Name">
-      <textarea id="fbMessage" rows="4" placeholder="Write your feedback..."></textarea>
-      <div class="feedback-actions">
-        <button class="btn-primary" onclick="submitFeedback()">Submit</button>
+    <!-- Feedback Card -->
+    <div class="feedback-card" id="feedbackCard">
+      <h3 style="margin:0 0 8px 0;">Leave your feedback</h3>
+
+      <div style="margin-bottom:8px;color:#555;font-size:14px;">
+        Your name is prefilled from "Hi, {name}" — you can edit it before submitting.
       </div>
-      <div id="feedbackList" style="margin-top:15px;"></div>
+
+      <div class="feedback-row">
+        <input id="fbName" type="text" placeholder="Your name">
+      </div>
+
+      <div style="margin-top:10px;">
+        <textarea id="fbMessage" rows="4" placeholder="Share your feedback..."></textarea>
+      </div>
+
+      <div class="feedback-actions">
+        <button class="btn-secondary" onclick="clearFeedbackForm()">Clear</button>
+        <button class="btn-primary" onclick="submitFeedback()">Submit Feedback</button>
+      </div>
+
+      <div class="feedback-list" id="feedbackList" aria-live="polite"></div>
     </div>
   </section>
 
-  <section class="contact" id="contact">
-    <div style="max-width:900px;margin:auto;">
-      <h2>Contact</h2>
-      <p>For product enquiries or assistance, reach out to us anytime.</p>
+  <!-- Contact -->
+  <section id="contact" class="contact">
+    <div style="max-width:1000px;margin:auto;">
+      <h2>Get in Touch</h2>
+      <p>For enquiries about product availability, custom orders, or assistance — drop us a message.</p>
     </div>
   </section>
 
   <footer>© <span id="year"></span> Rudhvi Vasthra — All rights reserved</footer>
 
+  <!-- Floating Buttons -->
+  <div id="whatsappBtn" title="Chat on WhatsApp"><img src="whatsapp.png" alt="WhatsApp"></div>
+  <a href="cart.html" id="cartIcon">🛒<span id="cartCount">0</span></a>
+
+  <div id="welcomePopup">
+    <div id="popupBox">
+      <h2>Welcome!</h2>
+      <p>What should we call you?</p>
+      <input type="text" id="userNameInput" placeholder="Enter your name">
+      <button onclick="saveUser()">Proceed</button>
+    </div>
+  </div>
+
   <script>
-    const greeting = document.getElementById("greeting");
-    const fbName = document.getElementById("fbName");
-    const fbMessage = document.getElementById("fbMessage");
-    const feedbackList = document.getElementById("feedbackList");
+    /* -------------- data & elements -------------- */
+    const greeting = document.getElementById('greeting');
+    const popup = document.getElementById('welcomePopup');
+    const sareeGrid = document.getElementById('sareeGrid');
+    const cartCount = document.getElementById('cartCount');
+    const fbNameInput = document.getElementById('fbName');
+    const fbMessageInput = document.getElementById('fbMessage');
+    const feedbackListEl = document.getElementById('feedbackList');
+
+    let userName = localStorage.getItem('userName') || "";
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
 
     const sarees = [
-      { name: "Kanchipuram Silk", price: 4500, image: "casual.jpg" },
-      { name: "Banarasi Saree", price: 5200, image: "designer.jpg" },
-      { name: "Chiffon Saree", price: 1800, image: "traditional.jpg" },
-      { name: "Georgette Saree", price: 2500, image: "designer.jpg" },
+      { id: "RS0001", name: "Kanchipuram Silk", desc: "Elegant traditional silk saree", price: 4500, image: "casual.jpg" },
+      { id: "RS0002", name: "Banarasi Saree", desc: "Classic zari woven masterpiece", price: 5200, image: "designer.jpg" },
+      { id: "RS0003", name: "Chiffon Saree", desc: "Lightweight and breezy", price: 1800, image: "traditional.jpg" },
+      { id: "RS0004", name: "Georgette Saree", desc: "Perfect for festive wear", price: 2500, image: "designer.jpg" }
     ];
 
-    const feedbacks = JSON.parse(localStorage.getItem("feedbacks") || "[]");
-    let userName = localStorage.getItem("userName") || "";
-
+    /* -------------- utility UI: toast -------------- */
     function showToast(msg) {
-      const toast = document.createElement("div");
-      toast.className = "toast";
+      const toast = document.createElement('div');
+      toast.className = 'toast';
       toast.textContent = msg;
       document.body.appendChild(toast);
       setTimeout(() => toast.remove(), 2500);
     }
 
+    /* -------------- sarees / cart -------------- */
     function renderSarees() {
-      const grid = document.getElementById("sareeGrid");
-      grid.innerHTML = sarees.map(s => `
+      sareeGrid.innerHTML = sarees.map((s, i) => `
         <div class="tile">
           <img src="${s.image}" alt="${s.name}">
           <h3>${s.name}</h3>
-          <p>₹${s.price}</p>
-          <button>Add to Cart</button>
+          <div class="saree-id">ID: ${s.id}</div>
+          <p>${s.desc}</p>
+          <p><strong>₹${s.price}</strong></p>
+          <button onclick="addToCart(${i})">Add to Cart</button>
         </div>
-      `).join("");
+      `).join('');
     }
 
+    function updateCartCount() {
+      const totalItems = cart.reduce((sum, item) => sum + (item.qty || 0), 0);
+      cartCount.textContent = totalItems;
+    }
+
+    function addToCart(index) {
+      const selected = sarees[index];
+      const existing = cart.find(c => c.id === selected.id);
+      if (existing) existing.qty++;
+      else cart.push({ ...selected, qty: 1 });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      showToast(`${selected.name} added to cart`);
+    }
+
+    /* -------------- greeting & name -------------- */
     function greetUser() {
-      greeting.innerHTML = `Hi, ${userName || "Guest"}!<br>Welcome to`;
+      if (!userName) return;
+      greeting.innerHTML = `Hi, ${escapeHtml(userName)}!<br>Welcome to`;
     }
 
-    function renderFeedbacks() {
-      if (feedbacks.length === 0) {
-        feedbackList.innerHTML = `<p style="color:#777;">No feedback yet — be the first to share!</p>`;
+    function saveUser() {
+      const inputName = document.getElementById('userNameInput').value.trim();
+      if (!inputName) {
+        showToast("Please enter your name!");
         return;
       }
-      feedbackList.innerHTML = feedbacks.slice().reverse().map(f => `
+      localStorage.setItem('userName', inputName);
+      userName = inputName;
+      popup.style.display = 'none';
+      greetUser();
+      showToast(`Welcome, ${userName}!`);
+      // prefill feedback name
+      fbNameInput.value = userName;
+    }
+
+    /* -------------- feedback handling -------------- */
+    function renderFeedbacks() {
+      if (!feedbacks || feedbacks.length === 0) {
+        feedbackListEl.innerHTML = '<div style="color:#666;padding:8px 0">No feedback yet — be the first to share!</div>';
+        return;
+      }
+      feedbackListEl.innerHTML = feedbacks.slice().reverse().map(f => `
         <div class="feedback-item">
-          <div class="meta"><strong>${f.name}</strong> · ${new Date(f.date).toLocaleString()}</div>
-          <div>${f.message}</div>
+          <div class="meta"><strong>${escapeHtml(f.name)}</strong> · <span>${new Date(f.ts).toLocaleString()}</span></div>
+          <div class="msg">${escapeHtml(f.message)}</div>
         </div>
-      `).join("");
+      `).join('');
     }
 
     function submitFeedback() {
-      const name = fbName.value.trim() || "Anonymous";
-      const message = fbMessage.value.trim();
-      if (!message) return showToast("Please enter feedback");
+      const name = (fbNameInput.value || '').trim();
+      const message = (fbMessageInput.value || '').trim();
+      if (!name) { showToast('Please enter your name'); return; }
+      if (!message) { showToast('Please write your feedback'); return; }
 
-      const fb = { name, message, date: new Date() };
-      feedbacks.push(fb);
-      localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
-      fbMessage.value = "";
+      const feedback = { name, message, ts: Date.now() };
+      feedbacks.push(feedback);
+      localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
       renderFeedbacks();
-      showToast("Feedback submitted ✅");
+      fbMessageInput.value = '';
+      showToast('Thanks — feedback saved locally ✅');
+
+      // Optionally push to GitHub (client-side) if you set the variables below.
+      // NOTE: It's recommended to push from a server (avoid exposing token in client).
+      // To enable, fill GITHUB_OWNER, GITHUB_REPO, and set GITHUB_TOKEN with a PAT that has repo:contents permission.
+      // The snippet below will try to GET the file to obtain sha and then PUT updated content.
+      // If you don't want to push, leave GITHUB_TOKEN empty.
+      const GITHUB_OWNER = '';      // e.g. 'your-username'
+      const GITHUB_REPO = '';       // e.g. 'your-repo'
+      const GITHUB_PATH = 'feedbacks.json';
+      const GITHUB_BRANCH = 'main';
+      const GITHUB_TOKEN = '';      // *** DON'T set if you don't know what you're doing ***
+      if (GITHUB_OWNER && GITHUB_REPO && GITHUB_TOKEN) {
+        pushFeedbacksToGithub(feedbacks, { owner: GITHUB_OWNER, repo: GITHUB_REPO, path: GITHUB_PATH, branch: GITHUB_BRANCH, token: GITHUB_TOKEN });
+      }
     }
 
+    function clearFeedbackForm() {
+      fbMessageInput.value = '';
+      // keep name as-is
+    }
+
+    /* -------------- optional GitHub push (client) -------------- */
+    async function pushFeedbacksToGithub(feedbacksArray, { owner, repo, path, branch='main', token }) {
+      try {
+        const apiBase = 'https://api.github.com';
+        const fileUrl = `${apiBase}/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(branch)}`;
+
+        // get existing file to obtain sha (if exists)
+        let sha = null;
+        const getRes = await fetch(fileUrl, { headers: { Authorization: 'token ' + token } });
+        if (getRes.ok) {
+          const getJson = await getRes.json();
+          sha = getJson.sha;
+        }
+
+        const contentStr = JSON.stringify(feedbacksArray, null, 2);
+        const contentB64 = btoa(unescape(encodeURIComponent(contentStr)));
+
+        const putBody = {
+          message: `Update feedbacks (${new Date().toISOString()})`,
+          content: contentB64,
+          branch
+        };
+        if (sha) putBody.sha = sha;
+
+        const putRes = await fetch(`${apiBase}/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}`, {
+          method: 'PUT',
+          headers: {
+            Authorization: 'token ' + token,
+            Accept: 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(putBody)
+        });
+
+        if (!putRes.ok) {
+          const err = await putRes.text();
+          console.error('GitHub push failed', err);
+          showToast('Feedback saved locally (GitHub push failed)');
+          return;
+        }
+        showToast('Feedback saved to GitHub ✅');
+      } catch (e) {
+        console.error(e);
+        showToast('Saved locally — GitHub push error');
+      }
+    }
+
+    /* -------------- WhatsApp action (cart order) -------------- */
+    document.getElementById("whatsappBtn").addEventListener("click", () => {
+      const name = localStorage.getItem("userName") || "Customer";
+      const cartData = JSON.parse(localStorage.getItem("cart")) || [];
+
+      if (cartData.length === 0) {
+        const msg = `Hello Rudhvi Vasthra,%0AI'm ${encodeURIComponent(name)} and I have an enquiry.`;
+        window.open(`https://wa.me/919701343474?text=${msg}`, "_blank");
+        return;
+      }
+
+      let msg = `Hello Rudhvi Vasthra,%0AI'm ${encodeURIComponent(name)}. I'd like to place an order:%0A%0A`;
+      cartData.forEach(item => {
+        msg += `🧵 ${encodeURIComponent(item.name)} (ID: ${encodeURIComponent(item.id)}) x${item.qty} — ₹${item.price * item.qty}%0A`;
+      });
+
+      const total = cartData.reduce((sum, i) => sum + i.price * i.qty, 0);
+      msg += `%0A💰 Total: ₹${total}%0A%0AThank you!`;
+
+      window.open(`https://wa.me/919701343474?text=${msg}`, "_blank");
+    });
+
+    /* -------------- helpers -------------- */
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function toggleMenu() {
+      document.getElementById("navMenu").classList.toggle("show");
+    }
+
+    function closeMenu() {
+      document.getElementById("navMenu").classList.remove("show");
+    }
+
+    /* -------------- init on load -------------- */
     window.onload = () => {
-      document.getElementById("year").textContent = new Date().getFullYear();
+      document.getElementById('year').textContent = new Date().getFullYear();
       renderSarees();
-      greetUser();
+      updateCartCount();
       renderFeedbacks();
-      fbName.value = userName || "";
+
+      // greeting & prefills
+      if (userName) {
+        greetUser();
+        fbNameInput.value = userName;
+      } else {
+        popup.style.display = 'flex';
+      }
     };
   </script>
 </body>
