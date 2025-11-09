@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Rudhvi Vasthra — Sarees Collection</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
+    rel="stylesheet">
 
   <style>
     :root {
@@ -29,49 +31,108 @@
       width: 100%;
       position: fixed;
       top: 0;
-      background: rgba(255, 255, 255, 0.9);
+      left: 0;
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(6px);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      display: flex;
-      justify-content: center;
-      z-index: 60;
+      z-index: 100;
     }
 
     .site-nav .inner {
       max-width: 1200px;
-      width: 100%;
+      margin: 0 auto;
+      padding: 10px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 24px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .brand .mark {
-      width: 46px;
-      height: 46px;
+      width: 40px;
+      height: 40px;
       background: linear-gradient(135deg, var(--primary), #b51919);
       border-radius: 8px;
-      color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
+      color: #fff;
       font-family: "Playfair Display", serif;
       font-weight: 800;
-      font-size: 20px;
+      font-size: 18px;
+    }
+
+    .brand-name {
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .brand-name small {
+      display: block;
+      font-size: 11px;
+      opacity: 0.8;
     }
 
     .nav-links {
       display: flex;
       gap: 20px;
-      font-weight: 500;
     }
 
+    .nav-links a {
+      color: var(--text);
+      font-weight: 500;
+      font-size: 15px;
+    }
+
+    /* Mobile Menu */
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        flex-direction: column;
+        text-align: center;
+        padding: 16px 0;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-links.show {
+        display: flex;
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    /* Hero */
     .hero {
       min-height: 100vh;
       background: url('pusa.jpg') center/cover no-repeat;
@@ -94,19 +155,19 @@
     }
 
     .greeting-text {
-      position: relative;
       font-family: "Playfair Display", serif;
       font-weight: 700;
       font-size: 26px;
+      position: relative;
       z-index: 2;
-      animation: fadeIn 1s ease;
+      animation: fadeInUp 1s ease;
     }
 
     .hero h1 {
       font-family: "Playfair Display", serif;
       font-size: 60px;
       z-index: 2;
-      margin-bottom: 10px;
+      margin: 10px 0;
     }
 
     .hero p {
@@ -114,7 +175,7 @@
       z-index: 2;
     }
 
-    @keyframes fadeIn {
+    @keyframes fadeInUp {
       from {
         opacity: 0;
         transform: translateY(10px);
@@ -148,7 +209,46 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* Popup (Hidden by default) */
+    /* Floating Buttons */
+    #whatsappBtn,
+    #cartIcon {
+      position: fixed;
+      bottom: 20px;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 200;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease;
+    }
+
+    #whatsappBtn {
+      left: 20px;
+      background: #25D366;
+    }
+
+    #cartIcon {
+      right: 20px;
+      background: #fff;
+      font-size: 28px;
+      text-decoration: none;
+    }
+
+    #whatsappBtn:hover,
+    #cartIcon:hover {
+      transform: scale(1.1);
+    }
+
+    #whatsappBtn img {
+      width: 34px;
+      height: 34px;
+    }
+
+    /* Popup */
     #welcomePopup {
       display: none;
       position: fixed;
@@ -184,44 +284,6 @@
       border-radius: 6px;
       cursor: pointer;
     }
-
-    /* Floating Buttons */
-    #cartIcon,
-    #whatsappBtn {
-      position: fixed;
-      right: 20px;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 200;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    #cartIcon {
-      bottom: 20px;
-      background: #fff;
-      font-size: 28px;
-      text-decoration: none;
-    }
-
-    #whatsappBtn {
-      bottom: 90px;
-      background: #25D366;
-      transition: transform 0.2s;
-    }
-
-    #whatsappBtn:hover {
-      transform: scale(1.1);
-    }
-
-    #whatsappBtn img {
-      width: 34px;
-      height: 34px;
-    }
   </style>
 </head>
 
@@ -232,16 +294,14 @@
     <div class="inner">
       <div class="brand">
         <div class="mark">RV</div>
-        <div>
-          <div style="font-weight:700">Rudhvi Vasthra</div>
-          <div style="font-size:12px;opacity:.85">Exquisite Sarees</div>
-        </div>
+        <div class="brand-name">Rudhvi Vasthra<small>Exquisite Sarees</small></div>
       </div>
-      <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#collection">Collection</a>
-        <a href="#testimonials">Testimonials</a>
-        <a href="#contact">Contact</a>
+      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+      <div class="nav-links" id="navMenu">
+        <a href="#about" onclick="closeMenu()">About</a>
+        <a href="#collection" onclick="closeMenu()">Collection</a>
+        <a href="#testimonials" onclick="closeMenu()">Testimonials</a>
+        <a href="#contact" onclick="closeMenu()">Contact</a>
       </div>
     </div>
   </div>
@@ -250,18 +310,18 @@
   <header class="hero">
     <p id="greeting" class="greeting-text"></p>
     <h1>Rudhvi Vasthra</h1>
-    <p>A curated collection celebrating the rich heritage and artistry of Indian sarees — traditional weaves,
-      designer pieces, and everyday elegance.</p>
+    <p>A curated collection celebrating the rich heritage and artistry of Indian sarees — traditional weaves, designer
+      pieces, and everyday elegance.</p>
   </header>
 
   <!-- Toast -->
   <div id="toast"></div>
 
   <!-- Floating Buttons -->
-  <a href="cart.html" id="cartIcon">🛒</a>
   <div id="whatsappBtn" title="Chat on WhatsApp">
     <img src="whatsapp.png" alt="WhatsApp">
   </div>
+  <a href="cart.html" id="cartIcon">🛒</a>
 
   <!-- Welcome Popup -->
   <div id="welcomePopup">
@@ -279,19 +339,16 @@
     const popup = document.getElementById('welcomePopup');
     let userName = localStorage.getItem('userName') || "";
 
-    // Show toast message
     function showToast(message) {
       toast.textContent = message;
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 2200);
     }
 
-    // Greet user
     function greetUser() {
       greeting.innerHTML = `Hi, ${userName}!<br>Welcome to`;
     }
 
-    // Save user name
     function saveUser() {
       const inputName = document.getElementById('userNameInput').value.trim();
       if (!inputName) return showToast("Please enter your name!");
@@ -302,15 +359,20 @@
       showToast(`Welcome, ${userName}!`);
     }
 
-    // Show WhatsApp chat
     document.getElementById("whatsappBtn").addEventListener("click", () => {
       const name = localStorage.getItem("userName") || "Customer";
-      const message = `Hello Rudhvi Vasthra,%0AI'm ${name} and I have an enquiry.`;
-      const phone = "919701343474";
-      window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+      const msg = `Hello Rudhvi Vasthra,%0AI'm ${name} and I have an enquiry.`;
+      window.open(`https://wa.me/919701343474?text=${msg}`, "_blank");
     });
 
-    // Initialize
+    function toggleMenu() {
+      document.getElementById("navMenu").classList.toggle("show");
+    }
+
+    function closeMenu() {
+      document.getElementById("navMenu").classList.remove("show");
+    }
+
     window.onload = () => {
       if (userName) {
         greetUser();
