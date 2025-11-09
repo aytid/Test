@@ -90,7 +90,6 @@
       text-decoration: none;
     }
 
-    /* Mobile Menu */
     .menu-toggle {
       display: none;
       font-size: 28px;
@@ -156,7 +155,6 @@
       background: rgba(0, 0, 0, 0.45);
     }
 
-    /* Smooth Fade Animation */
     .greeting-text,
     .hero h1,
     .hero p {
@@ -193,7 +191,6 @@
       }
     }
 
-    /* Mobile Hero Center */
     @media (max-width: 768px) {
       .hero {
         margin-top: 0;
@@ -211,7 +208,6 @@
       }
     }
 
-    /* Sections */
     section {
       padding: 64px 20px;
     }
@@ -375,11 +371,32 @@
       border-radius: 6px;
       cursor: pointer;
     }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      opacity: 0;
+      font-weight: 500;
+      animation: fadeInOut 2.5s ease;
+      z-index: 500;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translate(-50%, 20px); }
+      10%, 90% { opacity: 1; transform: translate(-50%, 0); }
+      100% { opacity: 0; transform: translate(-50%, 20px); }
+    }
   </style>
 </head>
 
 <body>
-
   <!-- Navbar -->
   <div class="site-nav">
     <div class="inner">
@@ -412,8 +429,7 @@
   <section class="about-section" id="about">
     <div style="max-width:1000px;margin:auto;">
       <h2>About Rudhvi Vasthra</h2>
-      <p>Welcome to Rudhvi Vasthra, your premier destination for exquisite sarees. We pride ourselves on offering a
-        diverse range of styles, fabrics, and designs, ensuring every piece resonates with elegance and tradition.</p>
+      <p>Welcome to Rudhvi Vasthra, your premier destination for exquisite sarees...</p>
     </div>
   </section>
 
@@ -421,37 +437,15 @@
   <section id="collection">
     <div style="max-width:1100px;margin:auto;text-align:center;">
       <h2>Our Collection</h2>
-      <p>Explore our beautiful sarees below.</p>
       <div class="tiles" id="sareeGrid"></div>
-    </div>
-  </section>
-
-  <!-- Testimonials -->
-  <section id="testimonials" style="background:var(--bg-cream);">
-    <div style="max-width:1000px;margin:auto;text-align:center;">
-      <h2>Customer Reviews</h2>
-      <p>We value the feedback from our customers and appreciate their continued support.</p>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="contact">
-    <div style="max-width:1000px;margin:auto;">
-      <h2>Get in Touch</h2>
-      <p>For enquiries about product availability, custom orders, or assistance — drop us a message.</p>
     </div>
   </section>
 
   <footer>© <span id="year"></span> Rudhvi Vasthra — All rights reserved</footer>
 
-  <!-- Floating Buttons -->
-  <div id="whatsappBtn" title="Chat on WhatsApp">
-    <img src="whatsapp.png" alt="WhatsApp">
-  </div>
-
+  <div id="whatsappBtn" title="Chat on WhatsApp"><img src="whatsapp.png" alt="WhatsApp"></div>
   <a href="cart.html" id="cartIcon">🛒<span id="cartCount">0</span></a>
 
-  <!-- Welcome Popup -->
   <div id="welcomePopup">
     <div id="popupBox">
       <h2>Welcome!</h2>
@@ -475,6 +469,14 @@
       { id: "RS0003", name: "Chiffon Saree", desc: "Lightweight and breezy", price: 1800, image: "traditional.jpg" },
       { id: "RS0004", name: "Georgette Saree", desc: "Perfect for festive wear", price: 2500, image: "designer.jpg" }
     ];
+
+    function showToast(msg) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = msg;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 2500);
+    }
 
     function renderSarees() {
       sareeGrid.innerHTML = sarees.map((s, i) => `
@@ -501,7 +503,7 @@
       else cart.push({ ...selected, qty: 1 });
       localStorage.setItem('cart', JSON.stringify(cart));
       updateCartCount();
-      alert(`${selected.name} (ID: ${selected.id}) added to cart ✅`);
+      showToast(`${selected.name} added to cart`);
     }
 
     function greetUser() {
@@ -510,12 +512,12 @@
 
     function saveUser() {
       const inputName = document.getElementById('userNameInput').value.trim();
-      if (!inputName) return alert("Please enter your name!");
+      if (!inputName) return showToast("Please enter your name!");
       localStorage.setItem('userName', inputName);
       userName = inputName;
       popup.style.display = 'none';
       greetUser();
-      alert(`Welcome, ${userName}!`);
+      showToast(`Welcome, ${userName}!`);
     }
 
     document.getElementById("whatsappBtn").addEventListener("click", () => {
@@ -555,6 +557,5 @@
       else popup.style.display = 'flex';
     };
   </script>
-
 </body>
 </html>
