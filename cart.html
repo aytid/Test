@@ -334,7 +334,8 @@
 
     function payViaUPI() {
       const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
-      const upiID = "adityathirumala20@oksbi";
+      //const upiID = "adityathirumala20@oksbi";
+      const upiID = "erram.saideekshith@okhdfcbank";
       const name = "Rudhvi Vasthra";
       const note = "Saree Order Payment";
       const upiLink = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(name)}&am=${total}&cu=INR&tn=${encodeURIComponent(note)}`;
