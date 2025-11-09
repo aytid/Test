@@ -118,6 +118,11 @@
       font-weight: 600;
     }
 
+    .saree-id {
+      font-size: 13px;
+      color: #666;
+    }
+
     .price {
       color: #333;
       font-weight: 500;
@@ -248,7 +253,7 @@
     </div>
   </header>
 
-  <!-- Back to Shop Button (Right-aligned above cart box) -->
+  <!-- Back to Shop Button -->
   <div class="top-controls">
     <a href="index.html" class="backBtn">← Back to Shop</a>
   </div>
@@ -296,6 +301,7 @@
             <img src="${item.image}" alt="${item.name}">
             <div>
               <div class="name">${item.name}</div>
+              <div class="saree-id">ID: ${item.id}</div>
               <div class="price">₹${item.price}</div>
             </div>
           </div>
@@ -345,7 +351,7 @@
 
       let message = `Hello Rudhvi Vasthra,%0AI'm ${userName} and would like to place an order:%0A%0A`;
       cart.forEach(item => {
-        message += `🧵 ${item.name} (x${item.qty}) — ₹${item.price * item.qty}%0A`;
+        message += `🧵 ${item.name} (ID: ${item.id}) x${item.qty} — ₹${item.price * item.qty}%0A`;
       });
 
       const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
