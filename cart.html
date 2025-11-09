@@ -312,15 +312,17 @@
       document.getElementById("paymentPopup").style.display = "none";
     }
 
-    // ✅ Google Pay UPI Integration
+    // ✅ REAL Google Pay / UPI App Link Integration
     function payViaUPI() {
       const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
-      const upiID = "adityathirumala20@oksbi"; // Replace with your real UPI ID
+      const upiID = "adityathirumala20@oksbi";  // Replace with your UPI ID
       const name = "Rudhvi Vasthra";
       const note = "Saree Order Payment";
 
-      const gpayUrl = `https://pay.google.com/gp/p/ui/pay?pa=${upiID}&pn=${encodeURIComponent(name)}&am=${total}&cu=INR&tn=${encodeURIComponent(note)}`;
-      window.open(gpayUrl, "_blank");
+      // ✅ Deep link that opens Google Pay / any UPI app
+      const upiLink = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(name)}&am=${total}&cu=INR&tn=${encodeURIComponent(note)}`;
+
+      window.location.href = upiLink; // Opens GPay or user's default UPI app
       closePopup();
     }
 
