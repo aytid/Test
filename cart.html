@@ -20,16 +20,17 @@
       background: var(--bg-cream);
     }
 
+    /* Navbar */
     header {
       background: #fff;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       padding: 16px 24px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
       z-index: 50;
-      justify-content: center;
     }
 
     .brand {
@@ -49,6 +50,20 @@
       justify-content: center;
       align-items: center;
       font-family: "Playfair Display", serif;
+    }
+
+    .backBtn {
+      background: var(--primary);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .backBtn:hover {
+      background: #c41d1d;
     }
 
     main {
@@ -130,22 +145,6 @@
       font-size: 16px;
       color: #555;
       padding: 60px 0;
-    }
-
-    .backBtn {
-      display: inline-block;
-      background: var(--primary);
-      color: white;
-      padding: 10px 18px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: background 0.2s;
-      margin-bottom: 20px;
-    }
-
-    .backBtn:hover {
-      background: #c41d1d;
     }
 
     .payBtn {
@@ -231,21 +230,24 @@
 </head>
 
 <body>
+  <!-- Header -->
   <header>
     <div class="brand">
       <div class="mark">RV</div>
       <div>Rudhvi Vasthra</div>
     </div>
+    <a href="index.html" class="backBtn">Back to Shop</a>
   </header>
 
+  <!-- Main Cart -->
   <main>
-    <a href="index.html" class="backBtn">← Back to Shop</a>
     <h1>Your Cart</h1>
     <div id="cartList"></div>
     <div class="total" id="totalPrice"></div>
     <button class="payBtn" id="proceedBtn">Proceed to Payment</button>
   </main>
 
+  <!-- Footer -->
   <footer>
     © <span id="year"></span> Rudhvi Vasthra — All rights reserved
   </footer>
@@ -312,17 +314,14 @@
       document.getElementById("paymentPopup").style.display = "none";
     }
 
-    // ✅ REAL Google Pay / UPI App Link Integration
+    // ✅ Real UPI Deep Link
     function payViaUPI() {
       const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
-      const upiID = "adityathirumala20@oksbi";  // Replace with your UPI ID
+      const upiID = "adityathirumala20@oksbi"; // Replace with your UPI ID
       const name = "Rudhvi Vasthra";
       const note = "Saree Order Payment";
-
-      // ✅ Deep link that opens Google Pay / any UPI app
       const upiLink = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(name)}&am=${total}&cu=INR&tn=${encodeURIComponent(note)}`;
-
-      window.location.href = upiLink; // Opens GPay or user's default UPI app
+      window.location.href = upiLink;
       closePopup();
     }
 
