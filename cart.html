@@ -148,6 +148,26 @@
       background: #c41d1d;
     }
 
+    .payBtn {
+      display: block;
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 16px;
+      width: 100%;
+      margin-top: 20px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .payBtn:hover {
+      background: #c41d1d;
+    }
+
     footer {
       text-align: center;
       padding: 20px;
@@ -155,33 +175,57 @@
       font-size: 14px;
     }
 
-    /* WhatsApp Floating Button */
-    #whatsappBtn {
+    /* Payment Popup */
+    #paymentPopup {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: #28a71a;
-      display: flex;
-      align-items: center;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
       justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    #popupBox {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      width: 300px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    #popupBox h2 {
+      font-family: "Playfair Display", serif;
+      margin-bottom: 16px;
+    }
+
+    .popupBtn {
+      display: block;
+      width: 100%;
+      margin-top: 12px;
+      background: var(--beige);
+      color: black;
+      border: none;
+      padding: 10px 0;
+      border-radius: 6px;
+      font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-      z-index: 200;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: background 0.2s;
     }
 
-    #whatsappBtn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+    .popupBtn:hover {
+      background: #b8a78f;
     }
 
-    #whatsappBtn img {
-      width: 34px;
-      height: 34px;
-      object-fit: contain;
+    .closeBtn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      margin-top: 16px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -199,20 +243,25 @@
     <h1>Your Cart</h1>
     <div id="cartList"></div>
     <div class="total" id="totalPrice"></div>
+    <button class="payBtn" id="proceedBtn">Proceed to Payment</button>
   </main>
 
   <footer>
     © <span id="year"></span> Rudhvi Vasthra — All rights reserved
   </footer>
 
-  <!-- WhatsApp Floating Button -->
-  <div id="whatsappBtn" title="Order via WhatsApp">
-    <img src="whatsapp.png" alt="WhatsApp">
+  <!-- Payment Popup -->
+  <div id="paymentPopup">
+    <div id="popupBox">
+      <h2>Choose Payment Method</h2>
+      <button class="popupBtn" onclick="payViaUPI()">💰 Pay via Google Pay (UPI)</button>
+      <button class="popupBtn" onclick="payViaWhatsApp()">💬 Order via WhatsApp</button>
+      <button class="closeBtn" onclick="closePopup()">Cancel</button>
+    </div>
   </div>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
-
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     function renderCart() {
@@ -222,6 +271,7 @@
       if (cart.length === 0) {
         cartList.innerHTML = '<div class="empty">Your cart is empty.</div>';
         totalPrice.textContent = '';
+        document.getElementById("proceedBtn").style.display = "none";
         return;
       }
 
@@ -253,16 +303,36 @@
       renderCart();
     }
 
-    // WhatsApp message generation
-    document.getElementById("whatsappBtn").addEventListener("click", () => {
+    // Popup handlers
+    document.getElementById("proceedBtn").addEventListener("click", () => {
+      document.getElementById("paymentPopup").style.display = "flex";
+    });
+
+    function closePopup() {
+      document.getElementById("paymentPopup").style.display = "none";
+    }
+
+    // ✅ Google Pay UPI Integration
+    function payViaUPI() {
+      const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+      const upiID = "rudhvivasthra@okaxis"; // Replace with your real UPI ID
+      const name = "Rudhvi Vasthra";
+      const note = "Saree Order Payment";
+
+      const gpayUrl = `https://pay.google.com/gp/p/ui/pay?pa=${upiID}&pn=${encodeURIComponent(name)}&am=${total}&cu=INR&tn=${encodeURIComponent(note)}`;
+      window.open(gpayUrl, "_blank");
+      closePopup();
+    }
+
+    // 💬 WhatsApp order
+    function payViaWhatsApp() {
+      const userName = localStorage.getItem("userName") || "Customer";
       if (cart.length === 0) {
-        alert("Your cart is empty. Add some sarees first!");
+        alert("Your cart is empty!");
         return;
       }
 
-      const userName = localStorage.getItem("userName") || "Customer";
       let message = `Hello Rudhvi Vasthra,%0AI'm ${userName} and would like to place an order:%0A%0A`;
-
       cart.forEach(item => {
         message += `🧵 ${item.name} (x${item.qty}) — ₹${item.price * item.qty}%0A`;
       });
@@ -270,10 +340,11 @@
       const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
       message += `%0A💰 Total: ₹${total}%0A%0APlease confirm my order.`;
 
-      const phoneNumber = "919701343474"; // Use international format
+      const phoneNumber = "919701343474";
       const waUrl = `https://wa.me/${phoneNumber}?text=${message}`;
       window.open(waUrl, "_blank");
-    });
+      closePopup();
+    }
 
     renderCart();
   </script>
