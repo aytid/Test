@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -12,52 +13,133 @@
       --primary: #E62727;
       --beige: #CBB89F;
       --bg-cream: #F6EFD2;
+      --dark-section: #0b0d0c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
       font-family: "Poppins", sans-serif;
       background: var(--bg-cream);
+      color: #000;
+      scroll-behavior: smooth;
     }
 
-    header {
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      padding: 16px 24px;
+    /* Navbar */
+    .site-nav {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .site-nav .inner {
+      max-width: 1200px;
+      margin: auto;
+      padding: 10px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 50;
+      flex-wrap: wrap;
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 10px;
-      font-weight: 700;
     }
 
     .brand .mark {
-      background: var(--primary);
-      color: white;
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 8px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background: linear-gradient(135deg, var(--primary), #b51919);
+      color: #fff;
       font-family: "Playfair Display", serif;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
     }
 
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: #000;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #000;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 8px;
+        margin-top: 10px;
+      }
+
+      .nav-links.show {
+        display: flex;
+        animation: slideDown 0.3s ease;
+      }
+
+      .nav-links a {
+        padding: 10px 20px;
+        width: 100%;
+        text-align: left;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+
+    /* Main */
     main {
       max-width: 800px;
-      margin: 60px auto;
+      margin: 120px auto 60px;
       background: white;
       padding: 24px;
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
 
     h1 {
@@ -153,6 +235,7 @@
       padding: 20px;
       color: #777;
       font-size: 14px;
+      background: #fff;
     }
 
     /* WhatsApp Floating Button */
@@ -182,18 +265,34 @@
 </head>
 
 <body>
-  <header>
-    <div class="brand">
-      <div class="mark">RV</div>
-      <div>Rudhvi Vasthra</div>
-    </div>
-    <a href="index.html" class="backBtn">Back to Shop</a>
-  </header>
+  <!-- Navbar -->
+  <nav class="site-nav">
+    <div class="inner">
+      <div class="brand">
+        <div class="mark">RV</div>
+        <div>
+          <div style="font-weight:700">Rudhvi Vasthra</div>
+          <div style="font-size:12px;opacity:.85">Exquisite Sarees</div>
+        </div>
+      </div>
 
+      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+      <div class="nav-links" id="navMenu">
+        <a href="index.html#about" onclick="closeMenu()">About</a>
+        <a href="index.html#collection" onclick="closeMenu()">Collection</a>
+        <a href="index.html#testimonials" onclick="closeMenu()">Testimonials</a>
+        <a href="index.html#contact" onclick="closeMenu()">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
   <main>
     <h1>Your Cart</h1>
     <div id="cartList"></div>
     <div class="total" id="totalPrice"></div>
+    <a href="index.html" class="backBtn">Back to Shop</a>
   </main>
 
   <footer>
@@ -246,6 +345,14 @@
       renderCart();
     }
 
+    function toggleMenu() {
+      document.getElementById("navMenu").classList.toggle("show");
+    }
+
+    function closeMenu() {
+      document.getElementById("navMenu").classList.remove("show");
+    }
+
     // WhatsApp message generation
     document.getElementById("whatsappBtn").addEventListener("click", () => {
       if (cart.length === 0) {
@@ -264,7 +371,7 @@
       message += `%0A💰 Total: ₹${total}%0A%0APlease confirm my order.`;
 
       // Replace with your WhatsApp number (in international format, no spaces)
-      const phoneNumber = "9701343474";
+      const phoneNumber = "919701343474";
       const waUrl = `https://wa.me/${phoneNumber}?text=${message}`;
       window.open(waUrl, "_blank");
     });
