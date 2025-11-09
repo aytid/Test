@@ -25,11 +25,11 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       padding: 16px 24px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
       z-index: 50;
+      justify-content: center;
     }
 
     .brand {
@@ -140,8 +140,8 @@
       border-radius: 6px;
       text-decoration: none;
       font-weight: 600;
-      margin-top: 20px;
       transition: background 0.2s;
+      margin-bottom: 20px;
     }
 
     .backBtn:hover {
@@ -236,10 +236,10 @@
       <div class="mark">RV</div>
       <div>Rudhvi Vasthra</div>
     </div>
-    <a href="index.html" class="backBtn">Back to Shop</a>
   </header>
 
   <main>
+    <a href="index.html" class="backBtn">← Back to Shop</a>
     <h1>Your Cart</h1>
     <div id="cartList"></div>
     <div class="total" id="totalPrice"></div>
@@ -254,8 +254,8 @@
   <div id="paymentPopup">
     <div id="popupBox">
       <h2>Choose Payment Method</h2>
-      <button class="popupBtn" onclick="payViaUPI()">💰 Pay via Google Pay (UPI)</button>
-      <button class="popupBtn" onclick="payViaWhatsApp()">💬 Order via WhatsApp</button>
+      <button class="popupBtn" onclick="payViaUPI()">Pay via UPI</button>
+      <button class="popupBtn" onclick="payViaWhatsApp()">Order via WhatsApp</button>
       <button class="closeBtn" onclick="closePopup()">Cancel</button>
     </div>
   </div>
