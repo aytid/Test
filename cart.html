@@ -26,7 +26,7 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       padding: 16px 24px;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       position: sticky;
       top: 0;
@@ -52,6 +52,15 @@
       font-family: "Playfair Display", serif;
     }
 
+    /* Back to Shop (above cart box) */
+    .top-controls {
+      max-width: 800px;
+      margin: 40px auto 10px;
+      display: flex;
+      justify-content: flex-end;
+      padding: 0 16px;
+    }
+
     .backBtn {
       background: var(--primary);
       color: white;
@@ -66,9 +75,10 @@
       background: #c41d1d;
     }
 
+    /* Cart Container */
     main {
       max-width: 800px;
-      margin: 60px auto;
+      margin: 0 auto 60px;
       background: white;
       padding: 24px;
       border-radius: 10px;
@@ -230,16 +240,20 @@
 </head>
 
 <body>
-  <!-- Header -->
+  <!-- Navbar -->
   <header>
     <div class="brand">
       <div class="mark">RV</div>
       <div>Rudhvi Vasthra</div>
     </div>
-    <a href="index.html" class="backBtn">Back to Shop</a>
   </header>
 
-  <!-- Main Cart -->
+  <!-- Back to Shop Button (Right-aligned above cart box) -->
+  <div class="top-controls">
+    <a href="index.html" class="backBtn">← Back to Shop</a>
+  </div>
+
+  <!-- Cart -->
   <main>
     <h1>Your Cart</h1>
     <div id="cartList"></div>
@@ -247,7 +261,6 @@
     <button class="payBtn" id="proceedBtn">Proceed to Payment</button>
   </main>
 
-  <!-- Footer -->
   <footer>
     © <span id="year"></span> Rudhvi Vasthra — All rights reserved
   </footer>
@@ -305,7 +318,6 @@
       renderCart();
     }
 
-    // Popup handlers
     document.getElementById("proceedBtn").addEventListener("click", () => {
       document.getElementById("paymentPopup").style.display = "flex";
     });
@@ -314,10 +326,9 @@
       document.getElementById("paymentPopup").style.display = "none";
     }
 
-    // ✅ Real UPI Deep Link
     function payViaUPI() {
       const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
-      const upiID = "adityathirumala20@oksbi"; // Replace with your UPI ID
+      const upiID = "adityathirumala20@oksbi";
       const name = "Rudhvi Vasthra";
       const note = "Saree Order Payment";
       const upiLink = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(name)}&am=${total}&cu=INR&tn=${encodeURIComponent(note)}`;
@@ -325,7 +336,6 @@
       closePopup();
     }
 
-    // 💬 WhatsApp order
     function payViaWhatsApp() {
       const userName = localStorage.getItem("userName") || "Customer";
       if (cart.length === 0) {
