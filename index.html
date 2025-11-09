@@ -20,25 +20,18 @@
       --card-bg: #ffffff;
       --beige: #CBB89F;
       --dark-section: #0b0d0c;
-      --nav-height: 72px; /* used to offset fixed nav on small screens */
+      --nav-height: 72px;
     }
 
     * {
       box-sizing: border-box;
     }
 
-    html,
-    body {
-      height: 100%;
-    }
-
     body {
       margin: 0;
-      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      font-family: "Poppins", sans-serif;
       color: var(--text);
       background: var(--bg-cream);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
       line-height: 1.5;
     }
 
@@ -52,7 +45,7 @@
       display: block;
     }
 
-    /* ---------- Top navigation (transparent over hero) ---------- */
+    /* Navbar */
     .site-nav {
       width: 100%;
       position: fixed;
@@ -61,7 +54,6 @@
       z-index: 60;
       display: flex;
       justify-content: center;
-      pointer-events: none;
       padding: 5px 36px;
       background: rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(6px);
@@ -70,19 +62,15 @@
     .site-nav .inner {
       width: 100%;
       max-width: 1200px;
-      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      pointer-events: auto;
-      height: var(--nav-height);
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
-      color: #fff;
     }
 
     .brand .mark {
@@ -111,469 +99,98 @@
       font-size: 15px;
     }
 
-    /* ---------- HERO (unified, responsive, and mobile-aligned) ---------- */
-    .hero {
-      position: relative;
-      width: 100%;
-      min-height: calc(100vh - 40px);
-      display: flex;
-      align-items: center; /* vertical center */
-      justify-content: center;
-      padding: 28px 20px;
-      overflow: hidden;
-      margin-top: 10px; /* keep a little gap under fixed nav */
-    }
-
-    /* Background image & overlay */
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      /* Replace this url with your production backdrop (backdrop.jpg) or keep the unsplash fallback */
-      background-image: url('backdrop.jpg'), url('https://images.unsplash.com/photo-1603214395513-3ff2d4f3f9c3?q=80&w=1800&auto=format&fit=crop');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      filter: brightness(.48);
-      z-index: 0;
-    }
-
-    .hero .overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.28);
-      z-index: 1;
-    }
-
-    .hero .center {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      color: #fff;
-      max-width: 1100px;
-      width: 100%;
-      padding: 20px;
-      /* keep content from being blocked by fixed nav on very small screens */
-      margin-top: calc(var(--nav-height) * 0.05);
-    }
-
-    .hero h1 {
+    .greeting-text {
       font-family: "Playfair Display", serif;
       font-weight: 700;
-      /* responsive font size */
-      font-size: clamp(32px, 8vw, 84px);
-      letter-spacing: 3px;
-      margin: 0 0 18px;
-      line-height: 0.95;
-      text-transform: uppercase;
-    }
-
-    .hero p.lead {
-      color: rgba(255, 255, 255, 0.95);
-      font-size: clamp(14px, 2.1vw, 18px);
-      margin: 0 auto 22px;
-      max-width: 720px;
-      line-height: 1.6;
-    }
-
-    .hero .cta-row {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      padding: 12px 24px;
-      border-radius: 6px;
-      border: 0;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 15px;
-    }
-
-    .btn.beige {
-      background: var(--beige);
-      color: var(--dark-section);
-      border: 0;
-    }
-
-    .btn.ghost {
-      background: transparent;
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-    }
-
-    /* ---------- About (dark band) ---------- */
-    .about-section {
-      background: var(--dark-section);
-      color: #fff;
-      padding: 64px 20px;
-      position: relative;
-    }
-
-    .about-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 360px 1fr;
-      gap: 40px;
-      align-items: center;
-    }
-
-    .about-title {
-      font-family: "Playfair Display", serif;
-      font-size: 30px;
-      letter-spacing: 2px;
-      position: relative;
-    }
-
-    .about-title::after {
-      content: "";
-      position: absolute;
-      left: -28px;
-      top: 50%;
-      transform: translateY(-50%);
-      height: 68%;
-      width: 4px;
-      background: var(--beige);
-      border-radius: 2px;
-    }
-
-    .about-copy {
-      color: rgba(255, 255, 255, 0.92);
-      font-size: 16px;
-    }
-
-    .about-cta {
-      margin-top: 22px;
-      display: flex;
-      gap: 14px;
-    }
-
-    /* ---------- Collection (cream) ---------- */
-    .collection {
-      padding: 64px 20px;
-    }
-
-    .collection-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .collection h2 {
-      font-family: "Playfair Display", serif;
-      font-size: 42px;
-      margin: 0 0 12px;
-      color: black;
-      letter-spacing: 2px;
-    }
-
-    .collection p.sub {
-      max-width: 760px;
-      margin: 8px auto 28px;
-      color: rgba(0, 0, 0, .75);
-      font-size: 16px;
-    }
-
-    .tiles {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      margin-top: 34px;
-      align-items: stretch;
-    }
-
-    .tile {
-      position: relative;
-      height: 320px;
-      border-radius: 6px;
-      overflow: hidden;
-      box-shadow: 0 6px 20px rgba(10, 10, 10, 0.06);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .tile .bg {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      filter: contrast(.92);
-    }
-
-    .tile::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5));
-    }
-
-    .tile .content {
-      position: relative;
-      color: #fff;
-      text-align: center;
-      padding: 28px;
-      z-index: 2;
-    }
-
-    .tile .content h3 {
-      font-family: "Playfair Display", serif;
-      color: white;
-      font-size: 26px;
-      margin-bottom: 12px;
+      font-size: 24px;
       letter-spacing: 1px;
+      animation: fadeIn 1.5s ease forwards;
     }
 
-    .tile .content p {
-      font-size: 15px;
-      color: white;
-      max-width: 320px;
-      margin: 0 auto 16px;
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .tile .content a {
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-weight: 600;
-    }
 
-    /* ---------- Testimonials ---------- */
-    .testimonials {
-      padding: 64px 20px;
-      background: var(--bg-cream);
-    }
-
-    .test-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .test-inner h2 {
-      font-family: "Playfair Display", serif;
-      font-size: 42px;
-      margin: 0 0 12px;
-      color: var(--dark-section);
-    }
-
-    .test-inner p.sub {
-      color: var(--muted);
-      max-width: 760px;
-      margin: 8px auto 28px;
-    }
-
-    .test-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-top: 30px;
-    }
-
-    .testimonial {
-      background: var(--card-bg);
-      padding: 28px;
-      border-radius: 6px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
-      text-align: left;
-    }
-
-    .quote-icon {
-      font-size: 30px;
-      color: var(--muted);
-      opacity: 0.9;
-      margin-bottom: 6px;
-    }
-
-    .testimonial p {
-      margin: 0 0 16px;
-      color: #333;
-    }
-
-    .testimonial .author {
-      font-weight: 700;
-    }
-
-    /* ---------- Contact (dark) ---------- */
-    .contact {
-      background: var(--dark-section);
-      color: #fff;
-      padding: 64px 20px;
-    }
-
-    .contact-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 420px;
-      gap: 40px;
-      align-items: start;
-    }
-
-    .contact h2 {
-      font-family: "Playfair Display", serif;
-      font-size: 40px;
-      margin: 0 0 8px;
-      color: #fff;
-    }
-
-    .contact .details {
-      color: rgba(255, 255, 255, 0.85);
-      line-height: 1.8;
-    }
-
-    .contact form {
+    /* Floating Cart */
+    #cartIcon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #fff;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
       display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .contact input,
-    .contact textarea {
-      width: 100%;
-      padding: 12px;
-      border-radius: 6px;
-      border: 0;
-      font-size: 15px;
-      background: #fff;
-      color: #111;
-    }
-
-    .contact textarea {
-      min-height: 140px;
-      resize: vertical;
-    }
-
-    .contact .submit {
-      background: var(--beige);
-      color: var(--dark-section);
-      border: 0;
-      padding: 12px 18px;
-      border-radius: 6px;
-      font-weight: 700;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
       cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 200;
+      text-decoration: none;
     }
 
-    /* ---------- Footer ---------- */
-    footer.site-foot {
-      padding: 30px 20px;
+    /* Popup */
+    #welcomePopup {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    #popupBox {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
       text-align: center;
-      color: var(--muted);
-      font-size: 14px;
+      width: 300px;
     }
 
-    /* ---------- Small screens ---------- */
-    @media (max-width: 980px) {
-      .about-inner {
-        grid-template-columns: 1fr;
-        gap: 18px;
-        padding: 0 16px;
-      }
-
-      .contact-inner {
-        grid-template-columns: 1fr;
-        gap: 26px;
-        padding: 0 16px;
-      }
-
-      .tiles {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .hero {
-        min-height: calc(80vh);
-        padding: 20px 12px;
-      }
-
-      .hero h1 {
-        margin-bottom: 12px;
-      }
-
-      .site-nav {
-        padding: 0 20px;
-      }
-
-      .nav-links {
-        display: none;
-      }
+    #popupBox input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
     }
 
-    @media (max-width: 680px) {
-      .tiles {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding: 14px 12px;
-        min-height: calc(70vh);
-      }
-
-      .hero h1 {
-        font-size: clamp(28px, 9vw, 40px);
-        letter-spacing: 2px;
-      }
-
-      .hero p.lead {
-        font-size: 14px;
-      }
-
-      .test-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .brand .mark {
-        width: 36px;
-        height: 36px;
-        font-size: 18px;
-      }
-
-      .contact form {
-        order: 2;
-      }
-
-      /* ensure hero content isn't pushed under nav on very small screens */
-      .hero .center {
-        margin-top: 0;
-      }
-    }
-
-    /* utility */
-    .center {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    /* make whole tile focusable for keyboard users */
-    .tile {
-      outline: none;
-    }
-
-    .tile:focus {
-      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.12);
-      transform: translateY(-3px);
-      transition: transform .18s ease, box-shadow .18s ease;
+    #popupBox button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      margin-top: 14px;
+      border-radius: 6px;
+      cursor: pointer;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- top transparent nav -->
-  <div class="site-nav" aria-hidden="false">
+  <!-- Navbar -->
+  <div class="site-nav">
     <div class="inner">
-      <div class="brand" aria-hidden="false">
+      <div class="brand">
         <div class="mark">RV</div>
-        <div style="color:black">
+        <div>
           <div style="font-weight:700">Rudhvi Vasthra</div>
           <div style="font-size:12px;opacity:.85">Exquisite Sarees</div>
         </div>
       </div>
-
-      <div class="nav-links" role="navigation" aria-label="Main menu">
+      <div class="nav-links">
         <a href="#about">About</a>
         <a href="#collection">Collection</a>
         <a href="#testimonials">Testimonials</a>
@@ -582,196 +199,132 @@
     </div>
   </div>
 
-  <!-- HERO -->
-  <header class="hero" role="banner" id="home">
-    <div class="overlay" aria-hidden="true"></div>
-
-    <div class="center">
-      <h1>Rudhvi Vasthra</h1>
-
-      <p class="lead">
-        A curated collection celebrating the rich heritage and artistry of Indian sarees — traditional weaves,
-        designer pieces, and everyday elegance.
-      </p>
-
-      <div class="cta-row" role="group" aria-label="Hero CTAs">
-        <button class="btn beige" onclick="document.getElementById('collection').scrollIntoView({behavior:'smooth'})">Services</button>
-        <button class="btn ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contacts</button>
-      </div>
+  <!-- Hero -->
+  <header class="hero" id="home"
+    style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:white;background:url('pusa.jpg') center/cover no-repeat;position:relative;">
+    <div style="position:absolute;inset:0;background:rgba(0,0,0,0.45);"></div>
+    <div style="position:relative;z-index:2;">
+      <p id="greeting" class="greeting-text"></p>
+      <h1 style="font-family:'Playfair Display',serif;font-size:60px;margin-bottom:10px;">Rudhvi Vasthra</h1>
+      <p style="max-width:700px;margin:auto;">A curated collection celebrating the rich heritage and artistry of Indian
+        sarees — traditional weaves, designer pieces, and everyday elegance.</p>
     </div>
   </header>
 
-  <!-- ABOUT (dark band) -->
-  <section class="about-section" id="about">
-    <div class="about-inner">
-      <div>
-        <div class="about-title">About Rudhvi Vasthra</div>
-      </div>
-      <div>
-        <p class="about-copy">Welcome to Rudhvi Vasthra, your premier destination for exquisite sarees. Our
-          online platform showcases a stunning collection that celebrates the rich heritage and artistry of
-          saree craftsmanship. We pride ourselves on offering a diverse range of styles, fabrics, and designs,
-          ensuring that every piece resonates with elegance and tradition. Whether you're dressing for a
-          special occasion or seeking everyday wear, our curated selection promises to enhance your wardrobe
-          with grace and sophistication. Explore the beauty of sarees with us at Rudhvi Vasthra.</p>
 
-        <div class="about-cta">
-          <button class="btn beige" onclick="document.getElementById('collection').scrollIntoView({behavior:'smooth'})">Services</button>
-          <button class="btn ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contacts</button>
-        </div>
-      </div>
+  <!-- About -->
+  <section class="about-section" id="about" style="background:#0b0d0c;color:#fff;padding:64px 20px;">
+    <div class="center" style="max-width:1000px;margin:auto;">
+      <h2 style="font-family:'Playfair Display',serif;">About Rudhvi Vasthra</h2>
+      <p>Welcome to Rudhvi Vasthra, your premier destination for exquisite sarees. We pride ourselves on offering a
+        diverse range of styles, fabrics, and designs, ensuring that every piece resonates with elegance and tradition.
+      </p>
     </div>
   </section>
 
-  <!-- COLLECTION -->
-  <section class="collection" id="collection">
-    <div class="collection-inner">
-      <h2>Our Collection</h2>
-      <p class="sub">Explore a wide array of sarees designed to cater to your unique style and preferences at
-        Rudhvi Vasthra.</p>
-
-      <div class="tiles" role="list">
-        <article class="tile" role="listitem" aria-label="Traditional sarees" tabindex="0">
-          <div class="bg" style="background-image:url('traditional.jpg')"></div>
-          <div class="content">
-            <h3>Traditional Sarees</h3>
-            <p>Embrace timeless elegance with our traditional sarees, crafted to reflect the rich cultural
-              heritage and artistry of India.</p>
-            <a href="#contact">Contact ›</a>
-          </div>
-        </article>
-
-        <article class="tile" role="listitem" aria-label="Designer sarees" tabindex="0">
-          <div class="bg" style="background-image:url('designer.jpg')"></div>
-          <div class="content">
-            <h3>Designer Sarees</h3>
-            <p>Discover our exclusive range of designer sarees, where contemporary styles meet classic charm
-              — perfect for any celebration.</p>
-            <a href="#contact">Contact ›</a>
-          </div>
-        </article>
-
-        <article class="tile" role="listitem" aria-label="Casual sarees" tabindex="0">
-          <div class="bg" style="background-image:url('casual.jpg')"></div>
-          <div class="content">
-            <h3>Casual Sarees</h3>
-            <p>Find comfort and style in our casual sarees — ideal for everyday wear while maintaining a
-              touch of elegance.</p>
-            <a href="#contact">Contact ›</a>
-          </div>
-        </article>
-      </div>
+  <!-- Collection -->
+  <section class="collection" id="collection" style="padding:64px 20px;">
+    <div class="center" style="max-width:1100px;margin:auto;text-align:center;">
+      <h2 style="font-family:'Playfair Display',serif;">Our Collection</h2>
+      <p>Explore our beautiful sarees below.</p>
+      <div class="tiles" id="sareeGrid"
+        style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:30px;"></div>
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
-  <section class="testimonials" id="testimonials">
-    <div class="test-inner">
-      <h2>Customer Reviews</h2>
-      <p class="sub">We value the feedback from our customers and appreciate their continued support.</p>
-
-      <div class="test-grid">
-        <div class="testimonial">
-          <div class="quote-icon">“</div>
-          <p>Rudhvi Vasthra has redefined my saree shopping experience! The variety is incredible, and the
-            quality is unmatched. I felt stunning in the saree I purchased for my sister's wedding.</p>
-          <div class="author">Sarah Holland <span style="display:block;color:var(--muted);font-weight:400">Customer</span></div>
-        </div>
-
-        <div class="testimonial">
-          <div class="quote-icon">“</div>
-          <p>I've shopped from several saree websites, but Rudhvi Vasthra stands out for its unique
-            collection. The saree I ordered arrived beautifully packaged and exceeded my expectations in
-            both quality and design.</p>
-          <div class="author">David Watson <span style="display:block;color:var(--muted);font-weight:400">Customer</span></div>
-        </div>
-      </div>
+  <!-- Testimonials -->
+  <section class="testimonials" id="testimonials" style="padding:64px 20px;background:#F6EFD2;">
+    <div class="center" style="max-width:1000px;margin:auto;text-align:center;">
+      <h2 style="font-family:'Playfair Display',serif;">Customer Reviews</h2>
+      <p>We value the feedback from our customers and appreciate their continued support.</p>
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section class="contact" id="contact">
-    <div class="contact-inner">
-      <div>
-        <h2>Get in Touch</h2>
-        <p class="details">We're here to help. For enquiries about product availability, custom orders, or any
-          other assistance — drop us a message or use the contact details below.</p>
-
-        <div style="margin-top:28px;color:rgba(255,255,255,0.9)">
-          <div style="margin-bottom:14px">
-            <strong>Email</strong><br>
-            <a href="mailto:info@rudhvivasthra.com" style="color:rgba(255,255,255,0.9)">info@rudhvivasthra.com</a>
-          </div>
-
-          <div style="margin-bottom:14px">
-            <strong>Phone</strong><br>
-            <a href="tel:+911234567890" style="color:rgba(255,255,255,0.9)">+91 12345 67890</a>
-          </div>
-
-          <div>
-            <strong>Address</strong><br>
-            <span style="color:rgba(255,255,255,0.9)">123, Textile Lane, Heritage Street, Hyderabad,
-              India</span>
-          </div>
-        </div>
-      </div>
-
-      <form onsubmit="handleContact(event)">
-        <input type="text" id="name" placeholder="Name" required>
-        <input type="email" id="email" placeholder="Email" required>
-        <textarea id="message" placeholder="Type your message here..." required></textarea>
-        <div style="display:flex;gap:12px;align-items:center;justify-content:flex-end">
-          <button type="submit" class="submit">Send Message</button>
-        </div>
-      </form>
+  <!-- Contact -->
+  <section class="contact" id="contact" style="background:#0b0d0c;color:#fff;padding:64px 20px;">
+    <div style="max-width:1000px;margin:auto;">
+      <h2 style="font-family:'Playfair Display',serif;">Get in Touch</h2>
+      <p>For enquiries about product availability, custom orders, or assistance — drop us a message.</p>
     </div>
   </section>
 
-  <footer class="site-foot">
-    © <span id="year"></span> Rudhvi Vasthra — All rights reserved
-  </footer>
+  <!-- Footer -->
+  <footer style="text-align:center;padding:20px;color:#777;">© <span id="year"></span> Rudhvi Vasthra — All rights
+    reserved</footer>
+
+  <!-- Cart Icon -->
+  <a href="cart.html" id="cartIcon">🛒</a>
+
+  <!-- Popup -->
+  <div id="welcomePopup">
+    <div id="popupBox">
+      <h2>Welcome!</h2>
+      <p>What should we call you?</p>
+      <input type="text" id="userNameInput" placeholder="Enter your name">
+      <button onclick="saveUser()">Proceed</button>
+    </div>
+  </div>
+
   <script>
-        // --- Core Site Helpers ---
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Auto-update the copyright year in the footer.
-        document.getElementById('year').textContent = new Date().getFullYear();
+    const sareeGrid = document.getElementById('sareeGrid');
+    const greeting = document.getElementById('greeting');
+    let userName = localStorage.getItem('userName');
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-        /**
-         * Handles the contact form submission.
-         * @param {Event} e - The form submission event.
-         */
-        function handleContact(e) {
-            // Prevent the default form submission (which causes a page reload).
-            e.preventDefault();
-            
-            // Retrieve and trim values from form fields.
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const msg = document.getElementById('message').value.trim();
-            
-            // Basic client-side validation: ensure all fields are filled.
-            if (!name || !email || !msg) { 
-                alert('Please fill all fields'); 
-                return; 
-            }
-            
-            // NOTE: This is a demo. In production, replace this alert 
-            // with an actual asynchronous form submission (AJAX/Fetch API).
-            alert('Thanks, ' + name + '! Your message has been received. We will contact you soon.');
-            
-            // Clear the form fields after successful 'submission'.
-            e.target.reset();
-        }
+    const sarees = [
+      { name: "Kanchipuram Silk", desc: "Elegant traditional silk saree", price: 4500, image: "casual.jpg" },
+      { name: "Banarasi Saree", desc: "Classic zari woven masterpiece", price: 5200, image: "designer.jpg" },
+      { name: "Chiffon Saree", desc: "Lightweight and breezy", price: 1800, image: "traditional.jpg" },
+      { name: "Georgette Saree", desc: "Perfect for festive wear", price: 2500, image: "designer.jpg" }
+    ];
 
-        // --- UI/Accessibility Enhancements ---
+    function renderSarees() {
+      sareeGrid.innerHTML = sarees.map((s, i) => `
+        <article style="background:white;border-radius:8px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <img src="${s.image}" alt="${s.name}" style="width:100%;height:250px;object-fit:cover;">
+          <div style="padding:12px;">
+            <h3 style="font-family:'Playfair Display',serif;">${s.name}</h3>
+            <p>${s.desc}</p>
+            <p style="font-weight:600;">₹${s.price}</p>
+            <button onclick="addToCart(${i})" style="background:var(--beige);border:0;padding:8px 12px;border-radius:6px;cursor:pointer;">Add to Cart</button>
+          </div>
+        </article>
+      `).join('');
+    }
 
-        // Make the entire 'tile' element clickable, scrolling to the contact section.
-        document.querySelectorAll('.tile').forEach(t => {
-            // Add click listener: smooth scroll to the element with ID 'contact'.
-            t.addEventListener('click', () => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }));
-            
-            // Change the cursor to indicate the element is interactive/clickable.
-            t.style.cursor = 'pointer';
-        });
-    </script>
+    function addToCart(index) {
+      const selected = sarees[index];
+      const existing = cart.find(c => c.name === selected.name);
+      if (existing) existing.qty++;
+      else cart.push({ ...selected, qty: 1 });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${selected.name} added to cart!`);
+    }
+
+    function saveUser() {
+      const name = document.getElementById('userNameInput').value.trim();
+      if (!name) return alert("Please enter your name!");
+      localStorage.setItem('userName', name);
+      document.getElementById('welcomePopup').style.display = 'none';
+      greetUser();
+    }
+
+    function greetUser() {
+      const name = localStorage.getItem('userName');
+      const greetEl = document.getElementById('greeting');
+      greetEl.textContent = `Hi, ${name} ! Welcome to`;
+    }
+
+    window.onload = () => {
+      renderSarees();
+      if (userName) {
+        document.getElementById('welcomePopup').style.display = 'none';
+        greetUser();
+      }
+    };
+  </script>
 </body>
+
+</html>

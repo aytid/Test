@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Your Cart — Rudhvi Vasthra</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #E62727;
+      --beige: #CBB89F;
+      --bg-cream: #F6EFD2;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: var(--bg-cream);
+    }
+
+    header {
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+    }
+
+    .brand .mark {
+      background: var(--primary);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Playfair Display", serif;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 60px auto;
+      background: white;
+      padding: 24px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      text-align: center;
+      font-family: "Playfair Display", serif;
+      margin-bottom: 20px;
+    }
+
+    .cartItem {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #eee;
+      padding: 12px 0;
+    }
+
+    .cartItem img {
+      width: 80px;
+      height: 80px;
+      border-radius: 6px;
+      object-fit: cover;
+      margin-right: 14px;
+    }
+
+    .info {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .name {
+      font-weight: 600;
+    }
+
+    .price {
+      color: #333;
+      font-weight: 500;
+      font-size: 15px;
+    }
+
+    .qtyControls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .qtyBtn {
+      padding: 4px 10px;
+      background: var(--beige);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .qtyBtn:hover {
+      background: #b8a78f;
+    }
+
+    .total {
+      font-size: 20px;
+      text-align: right;
+      margin-top: 16px;
+      font-weight: 700;
+    }
+
+    .empty {
+      text-align: center;
+      font-size: 16px;
+      color: #555;
+      padding: 60px 0;
+    }
+
+    .backBtn {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 20px;
+      transition: background 0.2s;
+    }
+
+    .backBtn:hover {
+      background: #c41d1d;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    /* WhatsApp Floating Button */
+    #whatsappBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #25D366;
+      color: white;
+      font-size: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+      z-index: 200;
+      transition: transform 0.2s;
+    }
+
+    #whatsappBtn:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="brand">
+      <div class="mark">RV</div>
+      <div>Rudhvi Vasthra</div>
+    </div>
+    <a href="index.html" class="backBtn">Back to Shop</a>
+  </header>
+
+  <main>
+    <h1>Your Cart</h1>
+    <div id="cartList"></div>
+    <div class="total" id="totalPrice"></div>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Rudhvi Vasthra — All rights reserved
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <div id="whatsappBtn" title="Order via WhatsApp">💬</div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    function renderCart() {
+      const cartList = document.getElementById("cartList");
+      const totalPrice = document.getElementById("totalPrice");
+
+      if (cart.length === 0) {
+        cartList.innerHTML = '<div class="empty">Your cart is empty.</div>';
+        totalPrice.textContent = '';
+        return;
+      }
+
+      cartList.innerHTML = cart.map((item, i) => `
+        <div class="cartItem">
+          <div class="info">
+            <img src="${item.image}" alt="${item.name}">
+            <div>
+              <div class="name">${item.name}</div>
+              <div class="price">₹${item.price}</div>
+            </div>
+          </div>
+          <div class="qtyControls">
+            <button class="qtyBtn" onclick="changeQty(${i}, -1)">−</button>
+            <span>${item.qty}</span>
+            <button class="qtyBtn" onclick="changeQty(${i}, 1)">+</button>
+          </div>
+        </div>
+      `).join('');
+
+      const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+      totalPrice.textContent = "Total: ₹" + total.toLocaleString();
+    }
+
+    function changeQty(index, delta) {
+      cart[index].qty += delta;
+      if (cart[index].qty <= 0) cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    // WhatsApp message generation
+    document.getElementById("whatsappBtn").addEventListener("click", () => {
+      if (cart.length === 0) {
+        alert("Your cart is empty. Add some sarees first!");
+        return;
+      }
+
+      const userName = localStorage.getItem("userName") || "Customer";
+      let message = `Hello Rudhvi Vasthra,%0AI'm ${userName} and would like to place an order:%0A%0A`;
+
+      cart.forEach(item => {
+        message += `🧵 ${item.name} (x${item.qty}) — ₹${item.price * item.qty}%0A`;
+      });
+
+      const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+      message += `%0A💰 Total: ₹${total}%0A%0APlease confirm my order.`;
+
+      // Replace with your WhatsApp number (in international format, no spaces)
+      const phoneNumber = "9701343474";
+      const waUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+      window.open(waUrl, "_blank");
+    });
+
+    renderCart();
+  </script>
+</body>
+</html>
