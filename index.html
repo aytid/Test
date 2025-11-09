@@ -107,14 +107,6 @@
         padding: 16px 0;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       }
-      @media (max-width: 768px) {
-  .hero {
-    margin-top: 0;
-    min-height: 75vh;
-    padding-top: 100px; /* keeps some breathing room for text */
-  }
-}
-
 
       .nav-links.show {
         display: flex;
@@ -194,13 +186,23 @@
       }
     }
 
+    /* ✅ Mobile Hero Adjustment (Fix Big Gap) */
     @media (max-width: 768px) {
+      .hero {
+        margin-top: 0;
+        min-height: 80vh;
+        padding-top: 60px;
+        justify-content: flex-start;
+      }
+
       .hero h1 {
-        font-size: 42px;
+        font-size: 38px;
+        margin-top: 10px;
       }
 
       .greeting-text {
-        font-size: 22px;
+        font-size: 20px;
+        margin-top: 20px;
       }
     }
 
@@ -447,19 +449,6 @@
       <h2>Customer Reviews</h2>
       <p>We value the feedback from our customers and appreciate their continued support.</p>
     </div>
-
-    <!-- Feedback Form -->
-    <div style="max-width:700px;margin:40px auto;background:#fff;padding:24px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
-      <form id="feedbackForm">
-        <label for="fbName" style="font-weight:600;">Your Name</label>
-        <input type="text" id="fbName" placeholder="Enter your name" style="width:100%;padding:10px;margin-bottom:12px;border:1px solid #ccc;border-radius:6px;font-family:Poppins,sans-serif;">
-
-        <label for="fbText" style="font-weight:600;">Your Feedback</label>
-        <textarea id="fbText" rows="4" placeholder="Write your feedback..." style="width:100%;padding:10px;margin-bottom:12px;border:1px solid #ccc;border-radius:6px;font-family:Poppins,sans-serif;"></textarea>
-
-        <button type="submit" style="background:var(--primary);color:white;border:none;padding:10px 20px;border-radius:6px;font-weight:600;cursor:pointer;">Submit Feedback</button>
-      </form>
-    </div>
   </section>
 
   <!-- Contact -->
@@ -555,36 +544,39 @@
       showToast(`Welcome, ${userName}!`);
     }
 
-    document.getElementById("feedbackForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const name = document.getElementById("fbName").value.trim() || userName || "Guest";
-      const feedback = document.getElementById("fbText").value.trim();
-      if (!feedback) return showToast("Please write some feedback!");
-      console.log("Feedback submitted:", { name, feedback, date: new Date().toISOString() });
-      showToast("Thank you for your feedback ❤️");
-      document.getElementById("fbText").value = "";
-    });
-
     document.getElementById("whatsappBtn").addEventListener("click", () => {
       const name = localStorage.getItem("userName") || "Customer";
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      let msg = `Hello Rudhvi Vasthra,%0AI'm ${name}`;
-      if (cart.length > 0) {
-        msg += `%0AHere’s my order:%0A%0A` + cart.map(i => `🧵 ${i.name} (${i.id}) x${i.qty} — ₹${i.price * i.qty}`).join("%0A");
-        const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-        msg += `%0A%0ATotal: ₹${total}`;
+
+      if (cart.length === 0) {
+        const msg = `Hello Rudhvi Vasthra,%0AI'm ${name} and I have an enquiry.`;
+        window.open(`https://wa.me/919701343474?text=${msg}`, "_blank");
+        return;
       }
+
+      let msg = `Hello Rudhvi Vasthra,%0AI'm ${name}. I'd like to place an order:%0A%0A`;
+      cart.forEach(item => {
+        msg += `🧵 ${item.name} (ID: ${item.id}) x${item.qty} — ₹${item.price * item.qty}%0A`;
+      });
+
+      const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+      msg += `%0A💰 Total: ₹${total}%0A%0AThank you!`;
+
       window.open(`https://wa.me/919701343474?text=${msg}`, "_blank");
     });
 
-    function toggleMenu() { document.getElementById("navMenu").classList.toggle("show"); }
-    function closeMenu() { document.getElementById("navMenu").classList.remove("show"); }
+    function toggleMenu() {
+      document.getElementById("navMenu").classList.toggle("show");
+    }
+
+    function closeMenu() {
+      document.getElementById("navMenu").classList.remove("show");
+    }
 
     window.onload = () => {
       document.getElementById('year').textContent = new Date().getFullYear();
       renderSarees();
       updateCartCount();
-      document.getElementById("fbName").value = localStorage.getItem("userName") || "";
       if (userName) greetUser();
       else popup.style.display = 'flex';
     };
