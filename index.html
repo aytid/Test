@@ -115,6 +115,10 @@
         animation: fadeIn 0.3s ease;
       }
 
+      .menu-toggle {
+        display: block;
+      }
+
       @keyframes fadeIn {
         from {
           opacity: 0;
@@ -125,10 +129,6 @@
           opacity: 1;
           transform: translateY(0);
         }
-      }
-
-      .menu-toggle {
-        display: block;
       }
     }
 
@@ -161,6 +161,7 @@
       position: relative;
       z-index: 2;
       animation: fadeInUp 1s ease;
+      margin-bottom: 10px;
     }
 
     .hero h1 {
@@ -185,6 +186,89 @@
         opacity: 1;
         transform: translateY(0);
       }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding-top: 100px;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .greeting-text {
+        font-size: 22px;
+      }
+    }
+
+    /* Sections */
+    section {
+      padding: 64px 20px;
+    }
+
+    h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 34px;
+      margin-bottom: 20px;
+    }
+
+    .about-section,
+    .contact {
+      background: var(--dark-section);
+      color: #fff;
+    }
+
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .tile {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .tile img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .tile h3 {
+      font-family: "Playfair Display", serif;
+      margin: 10px 0;
+    }
+
+    .tile p {
+      margin-bottom: 10px;
+    }
+
+    .tile button {
+      background: var(--beige);
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .tile button:hover {
+      background: #b8a78f;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #777;
+      background: #fff;
     }
 
     /* Toast */
@@ -314,6 +398,42 @@
       pieces, and everyday elegance.</p>
   </header>
 
+  <!-- About -->
+  <section class="about-section" id="about">
+    <div style="max-width:1000px;margin:auto;">
+      <h2>About Rudhvi Vasthra</h2>
+      <p>Welcome to Rudhvi Vasthra, your premier destination for exquisite sarees. We pride ourselves on offering a
+        diverse range of styles, fabrics, and designs, ensuring every piece resonates with elegance and tradition.</p>
+    </div>
+  </section>
+
+  <!-- Collection -->
+  <section id="collection">
+    <div style="max-width:1100px;margin:auto;text-align:center;">
+      <h2>Our Collection</h2>
+      <p>Explore our beautiful sarees below.</p>
+      <div class="tiles" id="sareeGrid"></div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials" style="background:var(--bg-cream);">
+    <div style="max-width:1000px;margin:auto;text-align:center;">
+      <h2>Customer Reviews</h2>
+      <p>We value the feedback from our customers and appreciate their continued support.</p>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact">
+    <div style="max-width:1000px;margin:auto;">
+      <h2>Get in Touch</h2>
+      <p>For enquiries about product availability, custom orders, or assistance — drop us a message.</p>
+    </div>
+  </section>
+
+  <footer>© <span id="year"></span> Rudhvi Vasthra — All rights reserved</footer>
+
   <!-- Toast -->
   <div id="toast"></div>
 
@@ -337,12 +457,42 @@
     const greeting = document.getElementById('greeting');
     const toast = document.getElementById('toast');
     const popup = document.getElementById('welcomePopup');
+    const sareeGrid = document.getElementById('sareeGrid');
     let userName = localStorage.getItem('userName') || "";
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const sarees = [
+      { name: "Kanchipuram Silk", desc: "Elegant traditional silk saree", price: 4500, image: "casual.jpg" },
+      { name: "Banarasi Saree", desc: "Classic zari woven masterpiece", price: 5200, image: "designer.jpg" },
+      { name: "Chiffon Saree", desc: "Lightweight and breezy", price: 1800, image: "traditional.jpg" },
+      { name: "Georgette Saree", desc: "Perfect for festive wear", price: 2500, image: "designer.jpg" }
+    ];
+
+    function renderSarees() {
+      sareeGrid.innerHTML = sarees.map((s, i) => `
+        <div class="tile">
+          <img src="${s.image}" alt="${s.name}">
+          <h3>${s.name}</h3>
+          <p>${s.desc}</p>
+          <p><strong>₹${s.price}</strong></p>
+          <button onclick="addToCart(${i})">Add to Cart</button>
+        </div>
+      `).join('');
+    }
 
     function showToast(message) {
       toast.textContent = message;
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    function addToCart(index) {
+      const selected = sarees[index];
+      const existing = cart.find(c => c.name === selected.name);
+      if (existing) existing.qty++;
+      else cart.push({ ...selected, qty: 1 });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      showToast(`${selected.name} added to cart ✅`);
     }
 
     function greetUser() {
@@ -374,11 +524,10 @@
     }
 
     window.onload = () => {
-      if (userName) {
-        greetUser();
-      } else {
-        popup.style.display = 'flex';
-      }
+      document.getElementById('year').textContent = new Date().getFullYear();
+      renderSarees();
+      if (userName) greetUser();
+      else popup.style.display = 'flex';
     };
   </script>
 </body>
