@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -122,7 +121,6 @@
           opacity: 0;
           transform: translateY(-10px);
         }
-
         to {
           opacity: 1;
           transform: translateY(0);
@@ -175,24 +173,17 @@
     }
 
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ✅ Mobile Hero Adjustment (Fix Big Gap) */
+    /* ✅ Mobile Hero Adjustments (Perfect Centered Fix) */
     @media (max-width: 768px) {
       .hero {
         margin-top: 0;
-        min-height: 80vh;
-        padding-top: 60px;
-        justify-content: flex-start;
+        min-height: 85vh;
+        padding-top: 40px;
+        justify-content: center;
       }
 
       .hero h1 {
@@ -202,7 +193,7 @@
 
       .greeting-text {
         font-size: 20px;
-        margin-top: 20px;
+        margin-top: 0;
       }
     }
 
@@ -217,8 +208,7 @@
       margin-bottom: 20px;
     }
 
-    .about-section,
-    .contact {
+    .about-section, .contact {
       background: var(--dark-section);
       color: #fff;
     }
@@ -243,36 +233,6 @@
       width: 100%;
       height: 250px;
       object-fit: cover;
-    }
-
-    .tile h3 {
-      font-family: "Playfair Display", serif;
-      margin: 10px 0 4px;
-    }
-
-    .saree-id {
-      font-size: 13px;
-      color: #777;
-      margin-bottom: 6px;
-    }
-
-    .tile p {
-      margin-bottom: 10px;
-    }
-
-    .tile button {
-      background: var(--beige);
-      border: none;
-      padding: 8px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-bottom: 12px;
-      transition: transform 0.2s, background 0.2s;
-    }
-
-    .tile button:hover {
-      background: #b8a78f;
-      transform: translateY(-2px);
     }
 
     footer {
@@ -305,8 +265,7 @@
     }
 
     /* Floating Buttons */
-    #whatsappBtn,
-    #cartIcon {
+    #whatsappBtn, #cartIcon {
       position: fixed;
       bottom: 20px;
       border-radius: 50%;
@@ -321,28 +280,11 @@
       transition: transform 0.2s ease;
     }
 
-    #whatsappBtn {
-      left: 20px;
-      background: #28a71a;
-    }
+    #whatsappBtn { left: 20px; background: #28a71a; }
+    #cartIcon { right: 20px; background: #fff; font-size: 28px; position: fixed; }
 
-    #cartIcon {
-      right: 20px;
-      background: #fff;
-      font-size: 28px;
-      text-decoration: none;
-      position: fixed;
-    }
-
-    #whatsappBtn:hover,
-    #cartIcon:hover {
-      transform: scale(1.1);
-    }
-
-    #whatsappBtn img {
-      width: 34px;
-      height: 34px;
-    }
+    #whatsappBtn:hover, #cartIcon:hover { transform: scale(1.1); }
+    #whatsappBtn img { width: 34px; height: 34px; }
 
     #cartCount {
       position: absolute;
@@ -358,51 +300,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Popup */
-    #welcomePopup {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.6);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    #popupBox {
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      text-align: center;
-      width: 300px;
-    }
-
-    #popupBox input {
-      width: 100%;
-      padding: 8px;
-      margin-top: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-    #popupBox button {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      margin-top: 14px;
-      border-radius: 6px;
-      cursor: pointer;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Navbar -->
   <div class="site-nav">
     <div class="inner">
       <div class="brand">
@@ -419,166 +322,29 @@
     </div>
   </div>
 
-  <!-- Hero -->
   <header class="hero">
     <p id="greeting" class="greeting-text"></p>
     <h1>Rudhvi Vasthra</h1>
-    <p>A curated collection celebrating the rich heritage and artistry of Indian sarees — traditional weaves, designer pieces, and everyday elegance.</p>
+    <p>A curated collection celebrating the rich heritage and artistry of Indian sarees.</p>
   </header>
-
-  <!-- About -->
-  <section class="about-section" id="about">
-    <div style="max-width:1000px;margin:auto;">
-      <h2>About Rudhvi Vasthra</h2>
-      <p>Welcome to Rudhvi Vasthra, your premier destination for exquisite sarees. We pride ourselves on offering a diverse range of styles, fabrics, and designs, ensuring every piece resonates with elegance and tradition.</p>
-    </div>
-  </section>
-
-  <!-- Collection -->
-  <section id="collection">
-    <div style="max-width:1100px;margin:auto;text-align:center;">
-      <h2>Our Collection</h2>
-      <p>Explore our beautiful sarees below.</p>
-      <div class="tiles" id="sareeGrid"></div>
-    </div>
-  </section>
-
-  <!-- Testimonials -->
-  <section id="testimonials" style="background:var(--bg-cream);">
-    <div style="max-width:1000px;margin:auto;text-align:center;">
-      <h2>Customer Reviews</h2>
-      <p>We value the feedback from our customers and appreciate their continued support.</p>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="contact">
-    <div style="max-width:1000px;margin:auto;">
-      <h2>Get in Touch</h2>
-      <p>For enquiries about product availability, custom orders, or assistance — drop us a message.</p>
-    </div>
-  </section>
 
   <footer>© <span id="year"></span> Rudhvi Vasthra — All rights reserved</footer>
 
-  <!-- Toast -->
   <div id="toast"></div>
-
-  <!-- Floating Buttons -->
   <div id="whatsappBtn" title="Chat on WhatsApp">
     <img src="whatsapp.png" alt="WhatsApp">
   </div>
   <a href="cart.html" id="cartIcon">🛒<span id="cartCount">0</span></a>
 
-  <!-- Welcome Popup -->
-  <div id="welcomePopup">
-    <div id="popupBox">
-      <h2>Welcome!</h2>
-      <p>What should we call you?</p>
-      <input type="text" id="userNameInput" placeholder="Enter your name">
-      <button onclick="saveUser()">Proceed</button>
-    </div>
-  </div>
-
   <script>
     const greeting = document.getElementById('greeting');
-    const toast = document.getElementById('toast');
-    const popup = document.getElementById('welcomePopup');
-    const sareeGrid = document.getElementById('sareeGrid');
-    const cartCount = document.getElementById('cartCount');
     let userName = localStorage.getItem('userName') || "";
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    const sarees = [
-      { id: "RS0001", name: "Kanchipuram Silk", desc: "Elegant traditional silk saree", price: 4500, image: "casual.jpg" },
-      { id: "RS0002", name: "Banarasi Saree", desc: "Classic zari woven masterpiece", price: 5200, image: "designer.jpg" },
-      { id: "RS0003", name: "Chiffon Saree", desc: "Lightweight and breezy", price: 1800, image: "traditional.jpg" },
-      { id: "RS0004", name: "Georgette Saree", desc: "Perfect for festive wear", price: 2500, image: "designer.jpg" }
-    ];
-
-    function renderSarees() {
-      sareeGrid.innerHTML = sarees.map((s, i) => `
-        <div class="tile">
-          <img src="${s.image}" alt="${s.name}">
-          <h3>${s.name}</h3>
-          <div class="saree-id">ID: ${s.id}</div>
-          <p>${s.desc}</p>
-          <p><strong>₹${s.price}</strong></p>
-          <button onclick="addToCart(${i})">Add to Cart</button>
-        </div>
-      `).join('');
-    }
-
-    function updateCartCount() {
-      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
-      cartCount.textContent = totalItems;
-    }
-
-    function showToast(message) {
-      toast.textContent = message;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2200);
-    }
-
-    function addToCart(index) {
-      const selected = sarees[index];
-      const existing = cart.find(c => c.id === selected.id);
-      if (existing) existing.qty++;
-      else cart.push({ ...selected, qty: 1 });
-      localStorage.setItem('cart', JSON.stringify(cart));
-      updateCartCount();
-      showToast(`${selected.name} (ID: ${selected.id}) added to cart ✅`);
-    }
-
     function greetUser() {
       greeting.innerHTML = `Hi, ${userName}!<br>Welcome to`;
     }
-
-    function saveUser() {
-      const inputName = document.getElementById('userNameInput').value.trim();
-      if (!inputName) return showToast("Please enter your name!");
-      localStorage.setItem('userName', inputName);
-      userName = inputName;
-      popup.style.display = 'none';
-      greetUser();
-      showToast(`Welcome, ${userName}!`);
-    }
-
-    document.getElementById("whatsappBtn").addEventListener("click", () => {
-      const name = localStorage.getItem("userName") || "Customer";
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-      if (cart.length === 0) {
-        const msg = `Hello Rudhvi Vasthra,%0AI'm ${name} and I have an enquiry.`;
-        window.open(`https://wa.me/919701343474?text=${msg}`, "_blank");
-        return;
-      }
-
-      let msg = `Hello Rudhvi Vasthra,%0AI'm ${name}. I'd like to place an order:%0A%0A`;
-      cart.forEach(item => {
-        msg += `🧵 ${item.name} (ID: ${item.id}) x${item.qty} — ₹${item.price * item.qty}%0A`;
-      });
-
-      const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
-      msg += `%0A💰 Total: ₹${total}%0A%0AThank you!`;
-
-      window.open(`https://wa.me/919701343474?text=${msg}`, "_blank");
-    });
-
-    function toggleMenu() {
-      document.getElementById("navMenu").classList.toggle("show");
-    }
-
-    function closeMenu() {
-      document.getElementById("navMenu").classList.remove("show");
-    }
-
     window.onload = () => {
       document.getElementById('year').textContent = new Date().getFullYear();
-      renderSarees();
-      updateCartCount();
       if (userName) greetUser();
-      else popup.style.display = 'flex';
     };
   </script>
 
