@@ -132,7 +132,7 @@
 
     /* Hero */
     .hero {
-      min-height: 100vh;
+      min-height: 90vh;
       background: url('pusa.jpg') center/cover no-repeat;
       position: relative;
       color: white;
@@ -142,7 +142,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-top: 60px;
+      margin-top: 55px;
     }
 
     .hero::before {
@@ -187,13 +187,6 @@
     }
 
     @media (max-width: 768px) {
-      .hero {
-        min-height: 90vh;
-        margin-top: 55px;
-        justify-content: flex-start;
-        padding-top: 140px;
-      }
-
       .hero h1 {
         font-size: 42px;
       }
@@ -233,6 +226,7 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       overflow: hidden;
       text-align: center;
+      padding-bottom: 10px;
     }
 
     .tile img {
@@ -243,7 +237,13 @@
 
     .tile h3 {
       font-family: "Playfair Display", serif;
-      margin: 10px 0;
+      margin: 10px 0 4px;
+    }
+
+    .saree-id {
+      font-size: 13px;
+      color: #777;
+      margin-bottom: 6px;
     }
 
     .tile p {
@@ -321,6 +321,7 @@
       background: #fff;
       font-size: 28px;
       text-decoration: none;
+      position: relative;
     }
 
     #whatsappBtn:hover,
@@ -331,6 +332,24 @@
     #whatsappBtn img {
       width: 34px;
       height: 34px;
+    }
+
+    /* Cart Count Badge */
+    #cartCount {
+      position: absolute;
+      top: 4px;
+      right: 6px;
+      background: var(--primary);
+      color: white;
+      font-size: 13px;
+      font-weight: 600;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
     }
 
     /* Popup */
@@ -395,16 +414,14 @@
   <header class="hero">
     <p id="greeting" class="greeting-text"></p>
     <h1>Rudhvi Vasthra</h1>
-    <p>A curated collection celebrating the rich heritage and artistry of Indian sarees — traditional weaves, designer
-      pieces, and everyday elegance.</p>
+    <p>A curated collection celebrating the rich heritage and artistry of Indian sarees — traditional weaves, designer pieces, and everyday elegance.</p>
   </header>
 
   <!-- About -->
   <section class="about-section" id="about">
     <div style="max-width:1000px;margin:auto;">
       <h2>About Rudhvi Vasthra</h2>
-      <p>Welcome to Rudhvi Vasthra, your premier destination for exquisite sarees. We pride ourselves on offering a
-        diverse range of styles, fabrics, and designs, ensuring every piece resonates with elegance and tradition.</p>
+      <p>Welcome to Rudhvi Vasthra, your premier destination for exquisite sarees. We pride ourselves on offering a diverse range of styles, fabrics, and designs, ensuring every piece resonates with elegance and tradition.</p>
     </div>
   </section>
 
@@ -442,7 +459,7 @@
   <div id="whatsappBtn" title="Chat on WhatsApp">
     <img src="whatsapp.png" alt="WhatsApp">
   </div>
-  <a href="cart.html" id="cartIcon">🛒</a>
+  <a href="cart.html" id="cartIcon">🛒<span id="cartCount">0</span></a>
 
   <!-- Welcome Popup -->
   <div id="welcomePopup">
@@ -459,14 +476,15 @@
     const toast = document.getElementById('toast');
     const popup = document.getElementById('welcomePopup');
     const sareeGrid = document.getElementById('sareeGrid');
+    const cartCount = document.getElementById('cartCount');
     let userName = localStorage.getItem('userName') || "";
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     const sarees = [
-      { name: "Kanchipuram Silk", desc: "Elegant traditional silk saree", price: 4500, image: "casual.jpg" },
-      { name: "Banarasi Saree", desc: "Classic zari woven masterpiece", price: 5200, image: "designer.jpg" },
-      { name: "Chiffon Saree", desc: "Lightweight and breezy", price: 1800, image: "traditional.jpg" },
-      { name: "Georgette Saree", desc: "Perfect for festive wear", price: 2500, image: "designer.jpg" }
+      { id: "RS001", name: "Kanchipuram Silk", desc: "Elegant traditional silk saree", price: 4500, image: "casual.jpg" },
+      { id: "RS002", name: "Banarasi Saree", desc: "Classic zari woven masterpiece", price: 5200, image: "designer.jpg" },
+      { id: "RS003", name: "Chiffon Saree", desc: "Lightweight and breezy", price: 1800, image: "traditional.jpg" },
+      { id: "RS004", name: "Georgette Saree", desc: "Perfect for festive wear", price: 2500, image: "designer.jpg" }
     ];
 
     function renderSarees() {
@@ -474,11 +492,17 @@
         <div class="tile">
           <img src="${s.image}" alt="${s.name}">
           <h3>${s.name}</h3>
+          <div class="saree-id">ID: ${s.id}</div>
           <p>${s.desc}</p>
           <p><strong>₹${s.price}</strong></p>
           <button onclick="addToCart(${i})">Add to Cart</button>
         </div>
       `).join('');
+    }
+
+    function updateCartCount() {
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      cartCount.textContent = totalItems;
     }
 
     function showToast(message) {
@@ -489,11 +513,12 @@
 
     function addToCart(index) {
       const selected = sarees[index];
-      const existing = cart.find(c => c.name === selected.name);
+      const existing = cart.find(c => c.id === selected.id);
       if (existing) existing.qty++;
       else cart.push({ ...selected, qty: 1 });
       localStorage.setItem('cart', JSON.stringify(cart));
-      showToast(`${selected.name} added to cart ✅`);
+      updateCartCount();
+      showToast(`${selected.name} (ID: ${selected.id}) added to cart ✅`);
     }
 
     function greetUser() {
@@ -512,7 +537,22 @@
 
     document.getElementById("whatsappBtn").addEventListener("click", () => {
       const name = localStorage.getItem("userName") || "Customer";
-      const msg = `Hello Rudhvi Vasthra,%0AI'm ${name} and I have an enquiry.`;
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      if (cart.length === 0) {
+        const msg = `Hello Rudhvi Vasthra,%0AI'm ${name} and I have an enquiry.`;
+        window.open(`https://wa.me/919701343474?text=${msg}`, "_blank");
+        return;
+      }
+
+      let msg = `Hello Rudhvi Vasthra,%0AI'm ${name}. I'd like to place an order:%0A%0A`;
+      cart.forEach(item => {
+        msg += `🧵 ${item.name} (ID: ${item.id}) x${item.qty} — ₹${item.price * item.qty}%0A`;
+      });
+
+      const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+      msg += `%0A💰 Total: ₹${total}%0A%0AThank you!`;
+
       window.open(`https://wa.me/919701343474?text=${msg}`, "_blank");
     });
 
@@ -527,6 +567,7 @@
     window.onload = () => {
       document.getElementById('year').textContent = new Date().getFullYear();
       renderSarees();
+      updateCartCount();
       if (userName) greetUser();
       else popup.style.display = 'flex';
     };
