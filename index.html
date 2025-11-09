@@ -167,15 +167,14 @@
       margin-bottom: 10px;
     }
 
-.greeting-text {
-  font-family: "Playfair Display", serif;
-  font-weight: 700;
-  font-size: 26px;
-  color: #fff;
-  margin-bottom: 10px;
-  animation: fadeIn 1.5s ease forwards;
-}
-
+    .greeting-text {
+      font-family: "Playfair Display", serif;
+      font-weight: 700;
+      font-size: 26px;
+      color: #fff;
+      margin-bottom: 10px;
+      animation: fadeIn 1.5s ease forwards;
+    }
 
     @keyframes fadeIn {
       from {
@@ -211,6 +210,30 @@
       cursor: pointer;
       text-decoration: none;
       z-index: 200;
+    }
+
+    /* WhatsApp Floating Icon */
+    #whatsappIcon {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #25D366;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      z-index: 200;
+      transition: transform 0.2s ease;
+    }
+
+    #whatsappIcon:hover {
+      transform: scale(1.1);
     }
 
     /* Popup */
@@ -386,6 +409,9 @@
   <!-- Floating Cart -->
   <a href="cart.html" id="cartIcon">🛒</a>
 
+  <!-- WhatsApp Floating Button -->
+  <div id="whatsappIcon" title="Chat on WhatsApp">💬</div>
+
   <!-- Name Popup -->
   <div id="welcomePopup">
     <div id="popupBox">
@@ -442,7 +468,7 @@
 
     function greetUser() {
       const name = localStorage.getItem('userName');
-      greeting.textContent = `Hi, ${name} 👋`;
+      greeting.textContent = `Hi, ${name}`;
     }
 
     function toggleMenu() {
@@ -452,6 +478,14 @@
     function closeMenu() {
       document.getElementById("navMenu").classList.remove("show");
     }
+
+    // WhatsApp Chat Click
+    document.getElementById("whatsappIcon").addEventListener("click", () => {
+      const user = localStorage.getItem("userName") || "Customer";
+      const message = `Hello Rudhvi Vasthra,%0AI’m ${user} and would like to know more about your saree collections.`;
+      const phone = "9701343474";
+      window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+    });
 
     window.onload = () => {
       renderSarees();
