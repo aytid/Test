@@ -471,7 +471,7 @@
 
     function greetUser() {
       const name = localStorage.getItem('userName');
-      greeting.textContent = `Hi, ${name} ! Welcome to`;
+      greeting.innerHTML = `Hi, ${name}!<br>Welcome to`;
     }
 
     function toggleMenu() {
